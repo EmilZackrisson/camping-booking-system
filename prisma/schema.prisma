@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
     previewFeatures = ["jsonProtocol"]
 }
 
@@ -64,4 +64,57 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Customer {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    firstName String
+    lastName  String
+    email     String
+    phone     String
+    notes     String?
+    Booking   Booking[]
+}
+
+model Booking {
+    id              String     @id @default(cuid())
+    createdAt       DateTime   @default(now())
+    updatedAt       DateTime   @updatedAt
+    arrivalDate     DateTime
+    departureDate   DateTime
+    notes           String?
+    customer        Customer   @relation(fields: [customerId], references: [id])
+    customerId      String
+    numberOfPersons Int
+    paymentStatus   String     @default("unpaid")
+    paymentMethod   String?
+    paymentAmount   Int?
+    paymentCurrency String?
+    vehicles        Vehicle[]
+    locations       Location[]
+    confirmed       Boolean    @default(false)
+}
+
+model Vehicle {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    regNumber String
+    length    Int?
+    type      String
+    notes     String?
+    Booking   Booking? @relation(fields: [bookingId], references: [id])
+    bookingId String?
+}
+
+model Location {
+    id        String   @id
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    type      String
+    notes     String?
+    Booking   Booking? @relation(fields: [bookingId], references: [id])
+    bookingId String?
 }
