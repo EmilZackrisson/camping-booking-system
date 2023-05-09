@@ -1,25 +1,29 @@
 import { FormEvent } from "react";
+import { BookingForm } from "types";
 
 export default function NewBooking() {
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     let form = new FormData(e.currentTarget);
-    let data = Object.fromEntries(form.entries());
+    let data = Object.fromEntries(form.entries()) as unknown as BookingForm;
     if (verifySubmit(data)) {
       console.log(data);
       postData(data);
     }
   }
 
-  async function postData(data: { [k: string]: FormDataEntryValue }) {
+  async function postData(data: BookingForm) {
     await fetch("/api/booking", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/data",
       },
     })
       .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
         alert("Bokning skickad");
       })
       .catch((err) => {
@@ -28,7 +32,7 @@ export default function NewBooking() {
       });
   }
 
-  function verifySubmit(data: { [k: string]: FormDataEntryValue }) {
+  function verifySubmit(data: BookingForm) {
     if (!data.firstName) {
       alert("Du måste ange ett förnamn");
       return false;
@@ -41,7 +45,7 @@ export default function NewBooking() {
       alert("Du måste ange en e-post");
       return false;
     }
-    if (data.email !== data.confemail) {
+    if (data.email !== data.confirmEmail) {
       alert("E-post matchar inte bekräftelse");
       return false;
     }
@@ -61,7 +65,7 @@ export default function NewBooking() {
       alert("Avresedatum måste vara efter ankomstdatum");
       return false;
     }
-    if (!data.godkännande) {
+    if (!data.agreeToPolicy) {
       alert("Du måste godkänna bokningsvillkoren");
       return false;
     }
@@ -81,8 +85,8 @@ export default function NewBooking() {
         <input type="text" name="lastName" id="lastName" />
         <label htmlFor="email">E-post</label>
         <input type="email" name="email" id="email" />
-        <label htmlFor="confemail">Bekräfta E-post</label>
-        <input type="email" name="confemail" id="confemail" />
+        <label htmlFor="confirmEmail">Bekräfta E-post</label>
+        <input type="email" name="confirmEmail" id="confirmEmail" />
         <label htmlFor="phone">Telefon</label>
         <input type="tel" name="phone" id="phone" />
         <div className="flex flex-row gap-4">
@@ -103,14 +107,16 @@ export default function NewBooking() {
           <label htmlFor="tält">Tält</label>
           <input type="checkbox" name="tält" id="tält" />
         </div>
+        <label htmlFor="numberOfPersons">Antal personer</label>
+        <input type="number" name="numberOfPersons" id="numberOfPersons" />
 
         <h3>Övrigt</h3>
         <div>
           <label htmlFor="önskemål">Önskemål</label>
           <textarea name="önskemål" id="önskemål"></textarea>
         </div>
-        <label htmlFor="godkännande">Godkännande</label>
-        <input type="checkbox" name="godkännande" id="godkännande" />
+        <label htmlFor="agreeToPolicy">Godkännande</label>
+        <input type="checkbox" name="agreeToPolicy" id="agreeToPolicy" />
         <p>
           Vi behöver ovan uppgifter för att kunna fullfölja er bokning av boende
           hos oss och vi kommer inte att dela dessa uppgifter med tredje part.
