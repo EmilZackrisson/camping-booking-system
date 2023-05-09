@@ -95,6 +95,7 @@ model Booking {
     vehicles        Vehicle[]
     locations       Location[]
     confirmed       Boolean    @default(false)
+    accommodation   String
 }
 
 model Vehicle {
