@@ -1,4 +1,4 @@
-import { prisma } from "~/server/db";
+import { Booking, Customer } from "@prisma/client";
 
 type BookingForm = {
   firstName: string;
@@ -14,11 +14,10 @@ type BookingForm = {
   husvagn: boolean?;
   tält: boolean?;
   husbil: boolean?;
+  boende: string?;
 
   önskemål: string?;
   agreeToPolicy: boolean;
 };
 
-interface BookingWithCustomer extends Booking {
-  customer: Customer;
-}
+type BookingWithCustomer = Booking & { customer: Customer };

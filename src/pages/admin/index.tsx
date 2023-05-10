@@ -1,14 +1,10 @@
 import { prisma } from "@server/db";
 import { Booking, Customer } from "@prisma/client";
-import { fixDates, formatDate } from "@lib/dates";
+import { fixDates, formatDate } from "~/lib/utils";
 import BookingTable from "~/components/admin/BookingTable";
 import { BookingWithCustomer } from "types";
 
-const Admin = ({
-  bookings,
-}: {
-  bookings: (Booking & { customer: Customer })[];
-}) => {
+const Admin = ({ bookings }: { bookings: BookingWithCustomer[] }) => {
   console.log("All bookings:", bookings);
   bookings = fixDates(bookings);
 
@@ -24,12 +20,12 @@ const Admin = ({
 export default Admin;
 
 export async function getServerSideProps() {
-  let bookings = await prisma.booking.findMany({
+  let bookings = (await prisma.booking.findMany({
     orderBy: { arrivalDate: "asc" },
     include: {
       customer: true,
     },
-  });
+  })) as BookingWithCustomer[];
 
   bookings = JSON.parse(JSON.stringify(bookings));
 

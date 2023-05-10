@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@server/db";
+import { BookingForm } from "types";
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,6 +14,7 @@ export default async function handler(
       json.arrivalDate = new Date(json.arrivalDate).toISOString();
       json.departureDate = new Date(json.departureDate).toISOString();
       json.numberOfPersons = Number(json.numberOfPersons);
+      json.boende = accommodation(json);
 
       const prismaRes = await prisma.booking.create({
         data: {
@@ -27,10 +29,11 @@ export default async function handler(
           arrivalDate: json.arrivalDate,
           departureDate: json.departureDate,
           numberOfPersons: json.numberOfPersons,
+          accommodation: json.boende,
         },
       });
 
-      res.status(200).json(JSON.stringify(prismaRes.id));
+      res.json(prismaRes);
     } catch (error) {
       res.status(500).json(JSON.stringify(error));
     }
@@ -49,4 +52,13 @@ export default async function handler(
   } else {
     res.status(405).json(JSON.stringify({ message: "Method not allowed" }));
   }
+}
+
+function accommodation(data: BookingForm) {
+  let acc = "";
+  if (data.stuga) acc += "Stuga ";
+  if (data.husvagn) acc += "Husvagn ";
+  if (data.husbil) acc += "Husbil ";
+  if (data.tält) acc += "Tält ";
+  return acc;
 }
