@@ -1,10 +1,10 @@
 import { Booking, Customer } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { formatDate } from "~/lib/utils";
-import { BookingWithCustomer } from "types";
+import { BookingWithCustomerAndVehicles } from "types";
 
 export default function BookingTable(props: {
-  bookings: BookingWithCustomer[];
+  bookings: BookingWithCustomerAndVehicles[];
 }) {
   const { bookings } = props;
 
@@ -26,6 +26,9 @@ export default function BookingTable(props: {
               Boende
             </th>
             <th scope="col" className="px-6 py-3">
+              Fordon RegNr
+            </th>
+            <th scope="col" className="px-6 py-3">
               Åtgärder
             </th>
           </tr>
@@ -44,6 +47,9 @@ export default function BookingTable(props: {
               </td>
               <td className="whitespace-nowrap px-6 py-4">
                 {booking.accommodation}
+              </td>
+              <td className="whitespace-nowrap px-6 py-4">
+                {booking.vehicles[0]?.regNumber}
               </td>
               <td className="whitespace-nowrap px-6 py-4">
                 <a

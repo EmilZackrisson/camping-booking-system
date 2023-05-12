@@ -2,9 +2,13 @@ import { prisma } from "@server/db";
 import { Booking, Customer } from "@prisma/client";
 import { fixDates, formatDate } from "~/lib/utils";
 import BookingTable from "~/components/admin/BookingTable";
-import { BookingWithCustomer } from "types";
+import { BookingWithCustomer, BookingWithCustomerAndVehicles } from "types";
 
-const Admin = ({ bookings }: { bookings: BookingWithCustomer[] }) => {
+const Admin = ({
+  bookings,
+}: {
+  bookings: BookingWithCustomerAndVehicles[];
+}) => {
   console.log("All bookings:", bookings);
   bookings = fixDates(bookings);
 
@@ -24,8 +28,9 @@ export async function getServerSideProps() {
     orderBy: { arrivalDate: "asc" },
     include: {
       customer: true,
+      vehicles: true,
     },
-  })) as BookingWithCustomer[];
+  })) as BookingWithCustomerAndVehicles[];
 
   bookings = JSON.parse(JSON.stringify(bookings));
 

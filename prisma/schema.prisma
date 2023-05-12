@@ -104,6 +104,7 @@ model Vehicle {
     updatedAt DateTime @updatedAt
     regNumber String
     length    Int?
+    width     Int?
     type      String
     notes     String?
     Booking   Booking? @relation(fields: [bookingId], references: [id])

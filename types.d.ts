@@ -16,8 +16,17 @@ type BookingForm = {
   husbil: boolean?;
   boende: string?;
 
+  vehicleLength: number?;
+  vehicleWidth: number?;
+  vehicleRegNumber: string?;
+
   önskemål: string?;
   agreeToPolicy: boolean;
 };
 
 type BookingWithCustomer = Booking & { customer: Customer };
+
+type BookingWithCustomerAndVehicles = Booking & {
+  customer: Customer;
+  vehicles: Vehicle[];
+};

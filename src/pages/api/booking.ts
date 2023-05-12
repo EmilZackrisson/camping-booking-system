@@ -16,6 +16,47 @@ export default async function handler(
       json.numberOfPersons = Number(json.numberOfPersons);
       json.boende = accommodation(json);
 
+      if ((json.husvagn || json.husbil) && json.vehicleRegNumber) {
+        let vehicleType = "";
+        if (json.husvagn) vehicleType += "Husvagn ";
+        if (json.husbil) vehicleType += "Husbil ";
+
+        json.vehicleLength = Number(json.vehicleLength);
+        json.vehicleWidth = Number(json.vehicleWidth);
+
+        const vehicle = await prisma.vehicle.create({
+          data: {
+            length: json.vehicleLength,
+            width: json.vehicleWidth,
+            regNumber: json.vehicleRegNumber,
+            type: vehicleType,
+          },
+        });
+
+        const prismaRes = await prisma.booking.create({
+          data: {
+            customer: {
+              create: {
+                firstName: json.firstName,
+                lastName: json.lastName,
+                email: json.email,
+                phone: json.phone,
+              },
+            },
+            arrivalDate: json.arrivalDate,
+            departureDate: json.departureDate,
+            numberOfPersons: json.numberOfPersons,
+            accommodation: json.boende,
+            vehicles: {
+              connect: {
+                id: vehicle.id,
+              },
+            },
+          },
+        });
+        res.json(prismaRes);
+        return;
+      }
       const prismaRes = await prisma.booking.create({
         data: {
           customer: {

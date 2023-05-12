@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { BookingForm } from "types";
 
 export default function NewBooking() {
@@ -6,9 +6,28 @@ export default function NewBooking() {
     e.preventDefault();
     let form = new FormData(e.currentTarget);
     let data = Object.fromEntries(form.entries()) as unknown as BookingForm;
+
     if (verifySubmit(data)) {
       console.log(data);
       postData(data);
+    }
+  }
+
+  const [vehicleRequired, setVehicleRequired] = useState<boolean>(false);
+
+  const [vehicles, setVehicles] = useState<string[]>([]);
+
+  function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.checked) {
+      setVehicles([...vehicles, e.target.name]);
+    } else {
+      setVehicles(vehicles.filter((vehicle) => vehicle !== e.target.name));
+    }
+
+    if (vehicles.length === 0 && e.target.checked) {
+      setVehicleRequired(true);
+    } else if (vehicles.length === 1 && !e.target.checked) {
+      setVehicleRequired(false);
     }
   }
 
@@ -69,60 +88,111 @@ export default function NewBooking() {
       alert("Du måste godkänna bokningsvillkoren");
       return false;
     }
+    if (!data.numberOfPersons) {
+      alert("Du måste ange antal personer");
+      return false;
+    }
+    if (vehicleRequired) {
+      if (!data.vehicleRegNumber) {
+        alert("Du måste ange registreringsnummer på fordonet");
+        return false;
+      }
+    }
+
     return true;
   }
 
   return (
-    <div className="p-5">
-      <h1>New Booking</h1>
+    <div className="container flex p-5">
       <form
         onSubmit={handleFormSubmit}
         className="flex flex-col gap-3 bg-slate-300 p-4"
       >
-        <label htmlFor="firstName">Förnamn</label>
+        <h3 className="text-xl font-semibold">Kontaktuppgifter</h3>
+        <label htmlFor="firstName">Förnamn*</label>
         <input type="text" name="firstName" id="firstName" />
-        <label htmlFor="lastName">Efternamn</label>
+        <label htmlFor="lastName">Efternamn*</label>
         <input type="text" name="lastName" id="lastName" />
-        <label htmlFor="email">E-post</label>
+        <label htmlFor="email">E-post*</label>
         <input type="email" name="email" id="email" />
-        <label htmlFor="confirmEmail">Bekräfta E-post</label>
+        <label htmlFor="confirmEmail">Bekräfta E-post*</label>
         <input type="email" name="confirmEmail" id="confirmEmail" />
-        <label htmlFor="phone">Telefon</label>
+        <label htmlFor="phone">Telefon* (inkl. landsnummer)</label>
         <input type="tel" name="phone" id="phone" />
-        <div className="flex flex-row gap-4">
-          <label htmlFor="arrivalDate">Ankomstdatum</label>
+
+        <h3 className="mt-5 text-xl font-semibold">Boende*</h3>
+        <div className="flex flex-col gap-4">
+          <label htmlFor="arrivalDate">Ankomstdatum*</label>
           <input type="date" name="arrivalDate" id="arrivalDate" />
-          <label htmlFor="departureDate">Avresedatum</label>
+          <label htmlFor="departureDate">Avresedatum*</label>
           <input type="date" name="departureDate" id="departureDate" />
         </div>
 
-        <h3>Boende</h3>
-        <div>
-          <label htmlFor="stuga">Stuga</label>
-          <input type="checkbox" name="stuga" id="stuga" />
-          <label htmlFor="husvagn">Husvagn</label>
-          <input type="checkbox" name="husvagn" id="husvagn" />
-          <label htmlFor="husbil">Husbil</label>
-          <input type="checkbox" name="husbil" id="husbil" />
-          <label htmlFor="tält">Tält</label>
-          <input type="checkbox" name="tält" id="tält" />
+        <div className="flex flex-col gap-2">
+          <h4 className="font-semibold">Välj det boende du vill ha</h4>
+          <div className="checkbox-row">
+            <label htmlFor="stuga">Stuga</label>
+            <input type="checkbox" name="stuga" id="stuga" />
+          </div>
+          <div className="checkbox-row">
+            <label htmlFor="husvagn">Husvagn</label>
+            <input
+              type="checkbox"
+              name="husvagn"
+              id="husvagn"
+              onChange={handleCheckboxChange}
+            />
+          </div>
+
+          <div className="checkbox-row">
+            <label htmlFor="husbil">Husbil</label>
+            <input
+              type="checkbox"
+              name="husbil"
+              id="husbil"
+              onChange={handleCheckboxChange}
+            />
+          </div>
+          <div className="checkbox-row">
+            <label htmlFor="tält">Tält</label>
+            <input type="checkbox" name="tält" id="tält" />
+          </div>
         </div>
-        <label htmlFor="numberOfPersons">Antal personer</label>
+
+        {vehicleRequired && (
+          <div className="flex flex-col">
+            <label htmlFor="vehicleLength">Längd på fordonet</label>
+            <input type="number" name="vehicleLength" id="vehicleLength" />
+            <label htmlFor="vehicleWidth">Bredd på fordonet</label>
+            <input type="number" name="vehicleWidth" id="vehicleWidth" />
+            <label htmlFor="vehicleRegNumber">Registreringsnummer*</label>
+            <input type="text" name="vehicleRegNumber" id="vehicleRegNumber" />
+          </div>
+        )}
+
+        <label htmlFor="numberOfPersons">Antal personer*</label>
         <input type="number" name="numberOfPersons" id="numberOfPersons" />
 
-        <h3>Övrigt</h3>
-        <div>
+        <h3 className="mt-5 text-xl font-semibold">Övrigt</h3>
+        <div className="flex flex-col">
           <label htmlFor="önskemål">Önskemål</label>
           <textarea name="önskemål" id="önskemål"></textarea>
         </div>
-        <label htmlFor="agreeToPolicy">Godkännande</label>
-        <input type="checkbox" name="agreeToPolicy" id="agreeToPolicy" />
-        <p>
-          Vi behöver ovan uppgifter för att kunna fullfölja er bokning av boende
-          hos oss och vi kommer inte att dela dessa uppgifter med tredje part.
-        </p>
+        <div>
+          <label htmlFor="agreeToPolicy" className="mr-3">
+            Godkännande
+          </label>
+          <input type="checkbox" name="agreeToPolicy" id="agreeToPolicy" />
+          <p className="mt-4">
+            Vi behöver ovan uppgifter för att kunna fullfölja er bokning av
+            boende hos oss och vi kommer inte att dela dessa uppgifter med
+            tredje part.
+          </p>
+        </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn btn-primary">
+          Skicka bokning
+        </button>
       </form>
     </div>
   );
