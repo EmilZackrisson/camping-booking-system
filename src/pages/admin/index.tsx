@@ -13,11 +13,12 @@ const Admin = ({
   bookings = fixDates(bookings);
 
   return (
-    <>
-      <h1>Admin</h1>
+    <div className="p-3">
+      <h1 className="text-4xl font-bold">Admin</h1>
 
+      <h2 className="text-2xl">Alla bokningar</h2>
       <BookingTable bookings={bookings} />
-    </>
+    </div>
   );
 };
 

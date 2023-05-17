@@ -16,6 +16,21 @@ export default function Page({
     console.log("booking:", booking);
   }, [booking]);
 
+  async function removeBooking() {
+    await fetch("/api/booking", {
+      method: "DELETE",
+      body: JSON.stringify({ id: booking.id }),
+      headers: {
+        "Content-Type": "application/data",
+      },
+    }).then((res) => {
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      alert("Bokning borttagen");
+    });
+  }
+
   return (
     <div>
       <form className="flex flex-col gap-3 bg-slate-300 p-4">
@@ -111,6 +126,9 @@ export default function Page({
         </div>
 
         <button type="submit">Submit</button>
+        <button type="button" onClick={removeBooking}>
+          Ta bort
+        </button>
       </form>
     </div>
   );

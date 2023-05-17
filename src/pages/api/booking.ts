@@ -16,6 +16,10 @@ export default async function handler(
       json.numberOfPersons = Number(json.numberOfPersons);
       json.boende = accommodation(json);
 
+      if (!json.phone.includes("+")) {
+        json.phone = "+" + json.phone;
+      }
+
       if ((json.husvagn || json.husbil) && json.vehicleRegNumber) {
         let vehicleType = "";
         if (json.husvagn) vehicleType += "Husvagn ";
@@ -92,6 +96,23 @@ export default async function handler(
     }
   } else {
     res.status(405).json(JSON.stringify({ message: "Method not allowed" }));
+  }
+  if (req.method === "DELETE") {
+    try {
+      const { id } = req.query;
+      const booking = await prisma.booking.delete({
+        where: {
+          id: String(id),
+        },
+        include: {
+          customer: true,
+          vehicles: true,
+        },
+      });
+      res.status(200).json(booking);
+    } catch (error) {
+      res.status(500).json(JSON.stringify(error));
+    }
   }
 }
 
