@@ -9,4 +9,24 @@ declare global {
 	}
 }
 
+type BookingForm = {
+	firstName: string;
+	lastName: string;
+	email: string;
+	phone: string;
+
+	dateArrival: Date;
+	dateDepart: Date;
+
+	numberOfPersons: number;
+
+	Vehicles: Vehicle[];
+
+	Accommodations: string;
+
+	notes: string?;
+};
+
+export type { BookingForm };
+
 export {};
