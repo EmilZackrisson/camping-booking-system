@@ -20,9 +20,9 @@
 		if (result.token !== undefined) {
 			// window.location.href = "/booking";
 			console.log(result);
-
-			localStorage.setItem('token', result.token);
+			
 			Cookies.set('token', result.token, { expires: 7 });
+			Cookies.set("expires", result.expires, { expires: 7 })
 
 			window.location.href = '/admin';
 		} else {

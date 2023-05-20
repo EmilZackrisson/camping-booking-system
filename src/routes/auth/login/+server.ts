@@ -10,7 +10,7 @@ export async function POST(request) {
 	await mongoose.connect(MONGO_CONNECTION_STRING);
 
 	const email = form.email;
-	const passwordHash = form.hashedPassword;
+	const password = form.password;
 
 	const employee = await Employee.findOne({ email: email });
 
@@ -22,7 +22,7 @@ export async function POST(request) {
 
 	const storedPasswordHash = employee.passwordHash as string;
 
-	const isPasswordCorrect = await bcrypt.compare(passwordHash, storedPasswordHash);
+	const isPasswordCorrect = await bcrypt.compare(password, storedPasswordHash);
 
 	console.log(isPasswordCorrect);
 
