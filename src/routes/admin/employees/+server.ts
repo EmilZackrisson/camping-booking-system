@@ -2,11 +2,20 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import { Employee } from '$lib/mongoose';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { validateAdmin } from '$lib/validateAdmin';
 
 /** @type {import('./$types').RequestHandler}*/
 export async function POST(request) {
 	const body = await request.request.json();
 	console.log(body);
+
+	const validatedAdmin = await validateAdmin(request.cookies.get('token') as string);
+
+	if (validatedAdmin.error) {
+		return new Response(JSON.stringify({ error: validatedAdmin.error }), {
+			status: validatedAdmin.status
+		});
+	}
 
 	await mongoose.connect(MONGO_CONNECTION_STRING);
 
