@@ -11,9 +11,9 @@ export async function load({ request }) {
 
 		await mongoose.disconnect();
 
-		return {
-			bookings
-		};
+		const string = JSON.stringify(bookings);
+
+		return { bookings: string };
 	} catch (error) {
 		console.log(error);
 		return new Response(JSON.stringify({ error: error }));

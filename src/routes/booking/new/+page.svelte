@@ -2,6 +2,26 @@
 	let caravanChecked = false;
 	let motorhomeChecked = false;
 
+	let caravanData: {
+		length: number;
+		width: number;
+		regNr: string;
+	} = {
+		length: 0,
+		width: 0,
+		regNr: ''
+	};
+
+	let motorhomeData: {
+		length: number;
+		width: number;
+		regNr: string;
+	} = {
+		length: 0,
+		width: 0,
+		regNr: ''
+	};
+
 	async function postForm(form: Event) {
 		const formData = new FormData(form.target as HTMLFormElement);
 		let data = Object.fromEntries(formData.entries());
@@ -13,9 +33,27 @@
 		}
 		if (data.caravan) {
 			typeOfAccommodation += 'Husvagn, ';
+			caravanData.length = Number(data.caravanLength);
+			caravanData.width = Number(data.caravanWidth);
+			caravanData.regNr = data.caravanRegNr as string;
+
+			delete data.caravanLength;
+			delete data.caravanWidth;
+			delete data.caravanRegNr;
+
+			data.caravanData = JSON.stringify(caravanData);
 		}
 		if (data.motorhome) {
 			typeOfAccommodation += 'Husbil, ';
+			motorhomeData.length = Number(data.motorhomeLength);
+			motorhomeData.width = Number(data.motorhomeWidth);
+			motorhomeData.regNr = data.motorhomeRegNr as string;
+
+			delete data.motorhomeLength;
+			delete data.motorhomeWidth;
+			delete data.motorhomeRegNr;
+
+			data.motorhomeData = JSON.stringify(motorhomeData);
 		}
 		if (data.cottage) {
 			typeOfAccommodation += 'Stuga, ';
@@ -66,7 +104,9 @@
 		}
 
 		try {
-			// const docRef = await addDoc(collection(db, "camps/test-camp/bookings"), data);
+			console.log(data)
+
+			
 
 			await fetch('http://localhost:5173/api/booking', {
 				method: 'POST',
@@ -204,6 +244,10 @@
 
 	.checkbox-row > input[type='checkbox'] {
 		margin-left: 1rem;
+	}
+
+	textarea{
+		max-width: 100%;
 	}
 
 	section {

@@ -55,4 +55,8 @@
     .right {
         margin-right: 3rem;
     }
+
+    h3 {
+        margin-left: 5px;
+    }
 </style>
