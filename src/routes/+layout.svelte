@@ -1,0 +1,58 @@
+<nav>
+    <div class="right">
+        <h3>Camping Booking System</h3>
+    </div>
+    <div class="left">
+        <ul>
+            <li>
+                <a href="/admin">Admin</a>
+            </li>
+            <li>
+                <a href="/admin/employees">Anställda</a>
+            </li>
+            <li>
+                <a href="/admin/bookings">Bokningar</a>
+            </li>
+        </ul>
+    </div>
+    
+</nav>
+
+<slot></slot>
+
+<style>
+    :global(body) {
+        margin: 0;
+        font-family: sans-serif;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+    }
+
+    li {
+        margin: 0 1rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .left {
+        margin-left: auto;
+    }
+
+    .right {
+        margin-right: 3rem;
+    }
+</style>
