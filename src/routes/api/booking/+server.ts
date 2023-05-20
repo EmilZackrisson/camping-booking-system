@@ -27,6 +27,8 @@ export async function POST(request) {
 		await mongoose.connect(MONGO_CONNECTION_STRING);
 
 		const booking = new Booking(body);
+		booking._id = new mongoose.Types.ObjectId();
+
 		console.log(booking);
 
 		const res = await booking.save();

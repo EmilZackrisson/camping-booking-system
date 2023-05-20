@@ -20,9 +20,9 @@ export async function POST(request) {
 		return new Response(JSON.stringify({ code: 401 }));
 	}
 
-	const passwordHash = employee.passwordHash as string;
+	const storedPasswordHash = employee.passwordHash as string;
 
-	const isPasswordCorrect = await bcrypt.compare(password, passwordHash);
+	const isPasswordCorrect = await bcrypt.compare(password, storedPasswordHash);
 
 	console.log(isPasswordCorrect);
 
@@ -33,11 +33,16 @@ export async function POST(request) {
 	const token = genToken();
 	console.log(token);
 
-	await employee.updateOne({ sessions: [...employee.sessions, { token: token }] });
+	const expires = new Date();
+	expires.setDate(expires.getDate() + 7);
+
+	await employee.updateOne({
+		sessions: [...employee.sessions, { token: token, expires: expires }]
+	});
 
 	await mongoose.disconnect();
 
-	return new Response(JSON.stringify({ token: token }));
+	return new Response(JSON.stringify({ token: token, expires: expires }));
 }
 
 const rand = function () {

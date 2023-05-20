@@ -1,21 +1,14 @@
-<script lang="ts">
+<h1>
+    Anställda
+</h1>
 
-</script>
-
-<section>
-    <h1>Admin</h1>
-    <div class="nav-boxes">
-        <div class="nav-box">
-            <a href="/admin/employees">
-                <h2>Anställda</h2>
-            </a>
-        </div>
-        <div class="nav-box">
-            <a href="/admin/bookings">
-                <h2>Bokningar</h2>
-            </a>
+<div class="nav-boxes">
+    <div class="nav-box">
+        <a href="/admin/employees/new">
+            <h2>Skapa konto för anställd</h2>
+        </a>
     </div>
-</section>
+</div>
 
 <style>
     .nav-boxes {
