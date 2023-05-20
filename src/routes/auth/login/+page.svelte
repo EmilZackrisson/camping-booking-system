@@ -20,9 +20,9 @@
 		if (result.token !== undefined) {
 			// window.location.href = "/booking";
 			console.log(result);
-
-			localStorage.setItem('token', result.token);
+			
 			Cookies.set('token', result.token, { expires: 7 });
+			Cookies.set("expires", result.expires, { expires: 7 })
 
 			window.location.href = '/admin';
 		} else {
@@ -31,18 +31,18 @@
 	}
 </script>
 
-<form on:submit={login}>
-	<h1>Logga in</h1>
-	<label>
-		Email
-		<input name="email" type="email" />
-	</label>
-	<label>
-		Password
-		<input name="password" type="password" />
-	</label>
-	<button type="submit">Log in</button>
-</form>
+<section>
+	<form on:submit={login}>
+		<h1>Logga in</h1>
+		<label for="email"> E-post </label>
+		<input name="email" type="email" id="email" />
+
+		<label for="password"> Lösenord </label>
+		<input name="password" type="password" id="password" />
+
+		<button type="submit">Logga in</button>
+	</form>
+</section>
 
 <style>
 	:global(body) {
@@ -54,7 +54,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 500px;
+		max-width: 400px;
 		margin: 20px;
 		padding: 1rem;
 		background-color: #fff;
@@ -78,5 +78,17 @@
 		border-radius: 5px;
 		background-color: #eee;
 		cursor: pointer;
+	}
+
+	section {
+		background-image: url('../../../CampStoraBlaSjon-5-scaled.jpg');
+		background-size: cover;
+		background-position: center; /* Center the image */
+		background-repeat: no-repeat; /* Do not repeat the image */
+		min-height: 100vh;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
