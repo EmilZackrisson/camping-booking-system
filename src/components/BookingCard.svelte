@@ -12,7 +12,7 @@
         <p>Antal personer: {data.numberOfPersons}</p>
         <p>Bokningsnummer: {data._id}</p>
     </div>
-    <a href="/admin/bookings/edit" class="edit">Ändra</a>
+    <a href="/admin/bookings/edit/${data._id}" class="edit">Ändra</a>
     <a href="/admin/bookings/delete" class="delete">Ta bort</a>
 </section>
 
