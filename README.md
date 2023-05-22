@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/fcf09b34-3e52-435a-8e43-d39b7209274c/project/40466a06-40ef-4098-9b33-25311ec95c79.svg)](https://wakatime.com/badge/user/fcf09b34-3e52-435a-8e43-d39b7209274c/project/40466a06-40ef-4098-9b33-25311ec95c79)
+
 # Camping Booking System
 
 This project is primarily for learning purposes and is currently not remotely close to a stable version.
