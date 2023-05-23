@@ -1,14 +1,13 @@
 <script lang="ts">
-    export let data: any;
-    const booking = JSON.parse(data.booking);
-    console.log(booking)
+	export let data: any;
+	const booking = JSON.parse(data.booking);
+	console.log(booking);
 
-    let caravanChecked = booking.Vehicles.includes("caravan");
-    let motorhomeChecked = booking.Vehicles.includes("motorhome");
+	let caravanChecked = booking.Vehicles.includes('caravan');
+	let motorhomeChecked = booking.Vehicles.includes('motorhome');
 
-    let arrivalDate = new Date(booking.dateArrival).toISOString().split('T')[0];
-    let departureDate = new Date(booking.dateDepart).toISOString().split('T')[0];
-
+	let arrivalDate = new Date(booking.dateArrival).toISOString().split('T')[0];
+	let departureDate = new Date(booking.dateDepart).toISOString().split('T')[0];
 </script>
 
 <h1>Bokning {booking._id}</h1>
@@ -17,19 +16,31 @@
 	<form id="form">
 		<h1>Bokningsformulär</h1>
 		<label for="firstName">Förnamn</label>
-		<input type="text" name="firstName" id="firstName" required bind:value={booking.firstName}/>
+		<input type="text" name="firstName" id="firstName" required bind:value={booking.firstName} />
 		<label for="lastName">Efternamn</label>
-		<input type="text" name="lastName" id="lastName" required bind:value={booking.lastName}/>
+		<input type="text" name="lastName" id="lastName" required bind:value={booking.lastName} />
 		<label for="email">E-post</label>
-		<input type="email" name="email" id="email" required bind:value={booking.email}/>
+		<input type="email" name="email" id="email" required bind:value={booking.email} />
 		<label for="phone">Telefonnummer</label>
-		<input type="tel" name="phone" id="phone" required bind:value={booking.phone}/>
+		<input type="tel" name="phone" id="phone" required bind:value={booking.phone} />
 		<label for="arrivalDate">Ankomstdatum</label>
-		<input type="date" name="arrivalDate" id="arrivalDate" required bind:value={arrivalDate}/>
+		<input type="date" name="arrivalDate" id="arrivalDate" required bind:value={arrivalDate} />
 		<label for="departureDate">Avresedatum</label>
-		<input type="date" name="departureDate" id="departureDate" required bind:value={departureDate}/>
+		<input
+			type="date"
+			name="departureDate"
+			id="departureDate"
+			required
+			bind:value={departureDate}
+		/>
 		<label for="numberOfPersons">Antal Personer</label>
-		<input type="number" name="numberOfPersons" id="numberOfPersons" required bind:value={booking.numberOfPersons}/>
+		<input
+			type="number"
+			name="numberOfPersons"
+			id="numberOfPersons"
+			required
+			bind:value={booking.numberOfPersons}
+		/>
 		<p>Typ av boende</p>
 		<div class="type">
 			<div class="checkbox-row">
@@ -128,7 +139,7 @@
 		margin-left: 1rem;
 	}
 
-	textarea{
+	textarea {
 		max-width: 100%;
 	}
 
