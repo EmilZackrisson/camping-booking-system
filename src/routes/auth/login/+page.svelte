@@ -20,9 +20,9 @@
 		if (result.token !== undefined) {
 			// window.location.href = "/booking";
 			console.log(result);
-			
+
 			Cookies.set('token', result.token, { expires: 7 });
-			Cookies.set("expires", result.expires, { expires: 7 })
+			Cookies.set('expires', result.expires, { expires: 7 });
 
 			window.location.href = '/admin';
 		} else {
@@ -32,52 +32,30 @@
 </script>
 
 <section>
-	<form on:submit={login}>
-		<h1>Logga in</h1>
-		<label for="email"> E-post </label>
-		<input name="email" type="email" id="email" />
+	<form on:submit={login} class="flex p-5 bg-base-100 rounded-md flex-col lg:w-1/4">
+		<h1 class="text-xl">Logga in</h1>
+		<div class="form-control w-full">
+			<label class="label" for="email">
+				<span class="label-text">E-post</span>
+			</label>
+			<input type="text" id="email" name="email" class="input input-bordered w-full" />
+		</div>
 
-		<label for="password"> Lösenord </label>
-		<input name="password" type="password" id="password" />
+		<div class="form-control w-full">
+			<label class="label" for="password">
+				<span class="label-text">Lösenord</span>
+			</label>
+			<input type="password" id="password" name="password" class="input input-bordered w-full" />
+		</div>
 
-		<button type="submit">Logga in</button>
+		<button type="submit" class="btn btn-primary mt-3">Logga in</button>
 	</form>
 </section>
 
-<style>
+<style lang="postcss">
 	:global(body) {
 		margin: 0;
 		font-family: sans-serif;
-	}
-
-	form {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		max-width: 400px;
-		margin: 20px;
-		padding: 1rem;
-		background-color: #fff;
-		border-radius: 5px;
-	}
-
-	label {
-		margin-top: 1rem;
-	}
-
-	input {
-		padding: 0.5rem;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-	}
-
-	button {
-		margin-top: 1rem;
-		padding: 0.5rem;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		background-color: #eee;
-		cursor: pointer;
 	}
 
 	section {

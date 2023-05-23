@@ -4,9 +4,9 @@ import { MONGO_CONNECTION_STRING } from '$env/static/private';
 import { validateEmployee } from '$lib/validateAccount';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ request }) {
+export async function load({ cookies }) {
 	try {
-		const token = request.cookies.get('token');
+		const token = cookies.get('token');
 
 		const validatedEmployee = await validateEmployee(token as string);
 
@@ -22,9 +22,11 @@ export async function load({ request }) {
 
 		await mongoose.disconnect();
 
-		const string = JSON.stringify(bookings);
+		const json = JSON.parse(JSON.stringify(bookings));
 
-		return { bookings: string };
+		console.log(json);
+
+		return { bookings: { json } };
 	} catch (error) {
 		console.log(error);
 		return new Response(JSON.stringify({ error: error }));

@@ -1,13 +1,9 @@
-<script>
-	import '../app.css';
-</script>
-
-<nav>
-	<div class="right">
-		<h3>Camping Booking System</h3>
+<nav class="flex bg-base-100">
+	<div class="flex-1">
+		<h3 class="btn btn-ghost normal-case text-xl">Camping Booking System</h3>
 	</div>
-	<div class="left">
-		<ul>
+	<div class="flex-none">
+		<ul class="menu menu-horizontal px-1">
 			<li>
 				<a href="/admin">Admin</a>
 			</li>
@@ -23,7 +19,7 @@
 
 <slot />
 
-<style>
+<!-- <style>
 	:global(body) {
 		margin: 0;
 		font-family: sans-serif;
@@ -62,4 +58,10 @@
 	h3 {
 		margin-left: 5px;
 	}
+</style> -->
+
+<style global>
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
 </style>
