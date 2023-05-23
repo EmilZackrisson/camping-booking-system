@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import Booking from '../../../models/Booking.js';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import type { RequestHandler } from './$types';
 
-/** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
 	const id = url.searchParams.get('id');
 
@@ -19,10 +19,9 @@ export async function GET({ url }) {
 	return new Response(JSON.stringify(booking));
 }
 
-/** @type {import('./$types').RequestHandler}*/
-export async function POST(request) {
+export const POST = (async ({ request }) => {
 	try {
-		const body = await request.request.json();
+		const body = await request.json();
 
 		console.log(body);
 
@@ -50,6 +49,7 @@ export async function POST(request) {
 
 		return new Response(JSON.stringify(booking));
 	} catch (error) {
-		console.log(error);
+		console.log('ERROR POST /booking/new\n', error);
+		return new Response(JSON.stringify({ error: 'Something went wrong' }));
 	}
-}
+}) satisfies RequestHandler;
