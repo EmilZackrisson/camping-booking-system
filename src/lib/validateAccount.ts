@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
-import { Employee } from '$lib/mongoose';
+import Employee from '../models/Employee';
 
 async function validateAdmin(cookie: string) {
 	await mongoose.connect(MONGO_CONNECTION_STRING);
@@ -11,7 +11,7 @@ async function validateAdmin(cookie: string) {
 		return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
 	}
 
-	employeeFromDb.sessions.map((session) => {
+	employeeFromDb.sessions.map((session: { token: string; expires: string | number | Date }) => {
 		if (session.token === cookie) {
 			if (new Date(session.expires) < new Date()) {
 				return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
@@ -35,7 +35,7 @@ async function validateEmployee(cookie: string) {
 
 	console.log(employeeFromDb);
 
-	employeeFromDb?.sessions.map((session) => {
+	employeeFromDb?.sessions.map((session: { token: string; expires: string | number | Date }) => {
 		if (session.token === cookie) {
 			if (new Date(session.expires) < new Date()) {
 				return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };

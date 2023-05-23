@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
-import { Employee } from '$lib/mongoose';
+import Employee from '../../../models/Employee.js';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
 
 /** @type {import('./$types').RequestHandler}*/
