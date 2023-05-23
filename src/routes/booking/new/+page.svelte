@@ -104,9 +104,7 @@
 		}
 
 		try {
-			console.log(data)
-
-			
+			console.log(data);
 
 			await fetch('http://localhost:5173/api/booking', {
 				method: 'POST',
@@ -151,8 +149,12 @@
 		<p>Typ av boende</p>
 		<div class="type">
 			<div class="checkbox-row">
-				<input type="checkbox" name="tent" id="tent" />
-				<label for="tent">Tält</label>
+				<div class="form-control">
+					<label class="label cursor-pointer">
+						<label for="tent" class="label-text">Tält</label>
+						<input type="checkbox" id="tent" name="tent" class="checkbox checkbox-primary" />
+					</label>
+				</div>
 			</div>
 			<div class="checkbox-row">
 				<input type="checkbox" name="caravan" id="caravan" bind:checked={caravanChecked} />
@@ -246,7 +248,7 @@
 		margin-left: 1rem;
 	}
 
-	textarea{
+	textarea {
 		max-width: 100%;
 	}
 
