@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
-import { Employee } from '$lib/mongoose';
+import Employee from './models/Employee';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {

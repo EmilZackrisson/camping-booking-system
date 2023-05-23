@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
-import { Booking } from '$lib/mongoose';
+import Booking from '../../../../../models/Booking';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
 import { validateEmployee } from '$lib/validateAccount';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params, request }: { params: { id: string }; request: Request }) {
+export async function load({ params, cookies }) {
 	try {
-		const token = request.cookies.get('token');
+		const token = cookies.get('token');
 
 		const validatedEmployee = await validateEmployee(token as string);
 

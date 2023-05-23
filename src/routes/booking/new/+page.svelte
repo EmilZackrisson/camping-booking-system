@@ -2,6 +2,19 @@
 	let caravanChecked = false;
 	let motorhomeChecked = false;
 
+	import type { PageData } from './$types';
+	import { superForm } from 'sveltekit-superforms/client';
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+
+	export let data: PageData;
+
+	// Client API:
+	const { form } = superForm(data.form, {
+		onUpdate: (form) => {
+			console.log(form);
+		}
+	});
+
 	let caravanData: {
 		length: number;
 		width: number;
@@ -129,23 +142,43 @@
 	}
 </script>
 
+<SuperDebug data={$form} />
+
 <section class="flex justify-center m-5">
-	<form on:submit={postForm} id="form" class="w-2/5 flex flex-col">
+	<form method="POST" id="form" class="w-2/5 flex flex-col">
 		<h1 class="text-4xl text-center font-semibold">Bokningsformulär</h1>
 		<label for="firstName">Förnamn</label>
-		<input type="text" name="firstName" id="firstName" required />
+		<input type="text" name="firstName" id="firstName" required bind:value={$form.firstName} />
 		<label for="lastName">Efternamn</label>
-		<input type="text" name="lastName" id="lastName" required />
+		<input type="text" name="lastName" id="lastName" required bind:value={$form.lastName} />
 		<label for="email">E-post</label>
-		<input type="email" name="email" id="email" required />
+		<input type="email" name="email" id="email" required bind:value={$form.email} />
 		<label for="phone">Telefonnummer</label>
-		<input type="tel" name="phone" id="phone" required />
+		<input type="tel" name="phone" id="phone" required bind:value={$form.phone} />
 		<label for="arrivalDate">Ankomstdatum</label>
-		<input type="date" name="arrivalDate" id="arrivalDate" required />
+		<input
+			type="date"
+			name="arrivalDate"
+			id="arrivalDate"
+			required
+			bind:value={$form.dateArrival}
+		/>
 		<label for="departureDate">Avresedatum</label>
-		<input type="date" name="departureDate" id="departureDate" required />
+		<input
+			type="date"
+			name="departureDate"
+			id="departureDate"
+			required
+			bind:value={$form.dateDepart}
+		/>
 		<label for="numberOfPersons">Antal Personer</label>
-		<input type="number" name="numberOfPersons" id="numberOfPersons" required />
+		<input
+			type="number"
+			name="numberOfPersons"
+			id="numberOfPersons"
+			required
+			bind:value={$form.numberOfPersons}
+		/>
 		<div class="divider" />
 		<p>Typ av boende</p>
 		<div class="type flex flex-col gap-2">
