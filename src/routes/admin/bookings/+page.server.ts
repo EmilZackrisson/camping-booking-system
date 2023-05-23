@@ -11,9 +11,10 @@ export async function load({ cookies }) {
 		const validatedEmployee = await validateEmployee(token as string);
 
 		if (validatedEmployee.error) {
-			return new Response(JSON.stringify({ error: validatedEmployee.error }), {
-				status: validatedEmployee.status
-			});
+			return {
+				status: validatedEmployee.status,
+				body: JSON.stringify({ error: validatedEmployee.error })
+			};
 		}
 
 		await mongoose.connect(MONGO_CONNECTION_STRING);
@@ -22,13 +23,9 @@ export async function load({ cookies }) {
 
 		await mongoose.disconnect();
 
-		const json = JSON.parse(JSON.stringify(bookings));
-
-		console.log(json);
-
-		return { bookings: { json } };
+		return { bookings };
 	} catch (error) {
-		console.log(error);
-		return new Response(JSON.stringify({ error: error }));
+		console.log('GET BOOKING ERROR', error);
+		return { error };
 	}
 }

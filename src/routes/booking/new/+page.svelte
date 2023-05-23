@@ -1,6 +1,4 @@
 <script lang="ts">
-	import postcss from 'postcss';
-
 	let caravanChecked = false;
 	let motorhomeChecked = false;
 

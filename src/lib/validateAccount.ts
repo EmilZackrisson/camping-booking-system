@@ -33,11 +33,9 @@ async function validateEmployee(cookie: string) {
 
 	const employeeFromDb = await Employee.findOne({ sessions: { $elemMatch: { token: cookie } } });
 
-	if (employeeFromDb?.role !== 'Employee' || employeeFromDb?.role !== 'Admin') {
-		return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
-	}
+	console.log(employeeFromDb);
 
-	employeeFromDb.sessions.map((session) => {
+	employeeFromDb?.sessions.map((session) => {
 		if (session.token === cookie) {
 			if (new Date(session.expires) < new Date()) {
 				return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
