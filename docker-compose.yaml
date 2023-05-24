@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  camping-booking-system:
+    image: camping-booking-system
+    container_name: camping-booking-system
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
