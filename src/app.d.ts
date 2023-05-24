@@ -30,6 +30,7 @@ declare global {
 		length: number;
 		width: number;
 		regNr: string;
+		type: string;
 	};
 }
 

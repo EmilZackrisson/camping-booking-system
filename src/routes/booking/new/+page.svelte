@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { toast, Toaster } from 'svelte-french-toast';
+
 	let caravanChecked = false;
 	let motorhomeChecked = false;
 
@@ -104,7 +106,7 @@
 		}
 
 		try {
-			console.log(JSON.stringify(data));
+			console.log(data);
 
 			await fetch('http://localhost:5173/api/booking', {
 				method: 'POST',
@@ -120,17 +122,23 @@
 				console.log('Success');
 				const form: HTMLFormElement = document.getElementById('form') as HTMLFormElement;
 				form.reset();
-				alert('Bokning skickad!');
+				toast.success('Bokning skickad!', {
+					duration: 5000
+				});
 			});
 		} catch (error) {
 			console.error('Error adding document: ', error);
+			toast.error('Något gick fel, försök igen', {
+				duration: 5000
+			});
 		}
 	}
 </script>
 
 <section>
-	<form on:submit={postForm} id="form">
-		<h1>Bokningsformulär</h1>
+	<Toaster />
+	<form on:submit={postForm} id="form" class="container flex flex-col max-w-xl">
+		<h1 class="text-center text-3xl font-semibold">Bokningsformulär</h1>
 		<label for="firstName">Förnamn</label>
 		<input type="text" name="firstName" id="firstName" required />
 		<label for="lastName">Efternamn</label>
@@ -139,12 +147,13 @@
 		<input type="email" name="email" id="email" required />
 		<label for="phone">Telefonnummer</label>
 		<input type="tel" name="phone" id="phone" required />
-		<label for="arrivalDate">Ankomstdatum</label>
-		<input type="date" name="arrivalDate" id="arrivalDate" required />
-		<label for="departureDate">Avresedatum</label>
-		<input type="date" name="departureDate" id="departureDate" required />
+		<label for="dateArrival">Ankomstdatum</label>
+		<input type="date" name="dateArrival" id="dateArrival" required />
+		<label for="dateDepart">Avresedatum</label>
+		<input type="date" name="dateDepart" id="dateDepart" required />
 		<label for="numberOfPersons">Antal Personer</label>
 		<input type="number" name="numberOfPersons" id="numberOfPersons" required />
+		<div class="divider" />
 		<p>Typ av boende</p>
 		<div class="type">
 			<div class="checkbox-row">
@@ -183,8 +192,13 @@
 			<input type="text" name="caravanRegNr" id="caravanRegNr" />
 		{/if}
 
+		<div class="divider" />
+
 		<label for="message">Meddelande</label>
 		<textarea name="message" id="message" cols="30" rows="10" />
+
+		<div class="divider" />
+
 		<p>
 			Genom att skicka detta formulär godkänner du att vi lagrar dina uppgifter i vårt
 			bokningssystem.
@@ -195,6 +209,32 @@
 			<label for="gdpr">Jag godkänner att mina uppgifter lagras</label>
 		</div>
 
-		<button type="submit">Skicka</button>
+		<button type="submit" class="btn mb-5">Skicka</button>
 	</form>
 </section>
+
+<style>
+	input[type='text'],
+	input[type='email'],
+	input[type='tel'],
+	input[type='number'],
+	input[type='date'] {
+		@apply input input-bordered w-full;
+	}
+
+	input[type='checkbox'] {
+		@apply checkbox;
+	}
+
+	textarea {
+		@apply textarea textarea-bordered w-full;
+	}
+
+	label {
+		@apply label-text;
+	}
+
+	.checkbox-row {
+		@apply flex items-center gap-2 mb-2;
+	}
+</style>

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import BookingCard from '../../../components/BookingCard.svelte';
 	import toast, { Toaster } from 'svelte-french-toast';
+	import type { PageData } from './$types';
 
-	/** @type {import('./$types').PageData} */
-	export let data: any;
+	export let data: PageData;
 
 	console.log(data);
 
 	if (data.error) {
-		toast.error(data.error, {
+		toast.error(data.error as string, {
 			duration: 5000
 		});
 	}
@@ -22,14 +22,15 @@
 	<a href="/booking/new" class="btn btn-ghost">Skapa bokning</a>
 
 	<div class="bookings">
-		{#if bookings.length === 0}
+		{#if bookings?.length === 0}
 			<p>Inga bokningar</p>
+		{:else if bookings}
+			{#each bookings as booking}
+				<div class="booking">
+					<BookingCard data={booking} />
+				</div>
+			{/each}
 		{/if}
-		{#each bookings as booking}
-			<div class="booking">
-				<BookingCard data={booking} />
-			</div>
-		{/each}
 	</div>
 </main>
 
