@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import Booking from '../../../models/Booking.js';
+import Booking from '../../../models/Booking';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
-import type { RequestHandler } from './$types';
+import type { RequestEvent } from './$types';
 
 export async function GET({ url }) {
 	const id = url.searchParams.get('id');
@@ -19,8 +19,10 @@ export async function GET({ url }) {
 	return new Response(JSON.stringify(booking));
 }
 
-export const POST = (async ({ request }) => {
+export async function POST({ request }: RequestEvent) {
 	try {
+		console.log(request.body);
+
 		const body = await request.json();
 
 		console.log(body);
@@ -30,11 +32,26 @@ export const POST = (async ({ request }) => {
 		const booking = new Booking(body);
 		booking._id = new mongoose.Types.ObjectId();
 
-		booking.Vehicles.push({ caravan: JSON.parse(body.caravanData) });
-		booking.Vehicles.push({ motorhome: JSON.parse(body.motorhomeData) });
+		const vehicles: Vehicle[] = [];
 
-		booking.dateArrival = new Date(body.arrivalDate);
-		booking.dateDepart = new Date(body.departureDate);
+		if (body.caravanData) {
+			const caravanData: Vehicle = JSON.parse(body.caravanData);
+			console.log('Caravan data: ', caravanData);
+			caravanData.type = 'Husvagn';
+			vehicles.push(caravanData);
+		}
+
+		if (body.motorhomeData) {
+			const motorhomeData: Vehicle = JSON.parse(body.motorhomeData);
+			motorhomeData.type = 'Husbil';
+			console.log('Motorhome data: ', motorhomeData);
+			vehicles.push(motorhomeData);
+		}
+
+		booking.Vehicles = vehicles;
+
+		booking.dateArrival = new Date(body.dateArrival);
+		booking.dateDepart = new Date(body.dateDepart);
 
 		booking.Accommodations = body.typeOfAccommodation;
 
@@ -52,4 +69,4 @@ export const POST = (async ({ request }) => {
 		console.log('ERROR POST /booking/new\n', error);
 		return new Response(JSON.stringify({ error: 'Something went wrong' }));
 	}
-}) satisfies RequestHandler;
+}

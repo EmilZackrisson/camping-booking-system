@@ -1,6 +1,6 @@
 <nav class="flex bg-base-100">
 	<div class="flex-1">
-		<h3 class="btn btn-ghost normal-case text-xl">Camping Booking System</h3>
+		<a class="btn btn-ghost normal-case text-xl" href="/">Camping Booking System</a>
 	</div>
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1">
