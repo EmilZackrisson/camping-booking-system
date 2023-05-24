@@ -18,13 +18,13 @@ export async function load({ cookies }) {
 
 		await mongoose.connect(MONGO_CONNECTION_STRING);
 
-		const bookings = await Booking.find({}).sort({ dateArrival: -1 });
+		const bookings = await Booking.find({}).sort({ dateArrival: -1 }).lean();
 
 		await mongoose.disconnect();
 
 		console.log(bookings);
 
-		return { bookings };
+		return { bookings: JSON.stringify({ bookings }) };
 	} catch (error) {
 		console.log('GET BOOKING ERROR', error);
 		return { error };

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Booking from '../../../models/Booking';
 import { MONGO_CONNECTION_STRING } from '$env/static/private';
 import type { RequestEvent } from './$types';
+import { validateEmployee } from '$lib/validateAccount';
 
 export async function GET({ url }) {
 	const id = url.searchParams.get('id');
@@ -67,6 +68,35 @@ export async function POST({ request }: RequestEvent) {
 		return new Response(JSON.stringify(booking));
 	} catch (error) {
 		console.log('ERROR POST /booking/new\n', error);
+		return new Response(JSON.stringify({ error: 'Something went wrong' }));
+	}
+}
+
+export async function DELETE({ url, cookies }: RequestEvent) {
+	try {
+		const token = cookies.get('token');
+
+		const validatedAdmin = await validateEmployee(token as string);
+
+		if (validatedAdmin.error) {
+			return new Response(JSON.stringify({ error: validatedAdmin.error }));
+		}
+
+		const id = url.searchParams.get('id');
+
+		await mongoose.connect(MONGO_CONNECTION_STRING);
+
+		const res = await Booking.deleteOne({ _id: id });
+
+		await mongoose.disconnect();
+
+		if (res.deletedCount === 0) {
+			return new Response(JSON.stringify({ error: 'Booking not found' }));
+		}
+
+		return new Response(JSON.stringify({ success: true }));
+	} catch (error) {
+		console.log('ERROR DELETE /booking\n', error);
 		return new Response(JSON.stringify({ error: 'Something went wrong' }));
 	}
 }
