@@ -5,7 +5,7 @@ const AccomodationSchema = new mongoose.Schema({
 	slotName: { type: String, required: true },
 	location: { type: String, required: true },
 	type: { type: String, required: true },
-	price: [{ type: Number, day: Number }],
+	prices: [{ type: Number, required: true }],
 	description: { type: String, required: true },
 	electricity: { type: Boolean, required: true }
 });
