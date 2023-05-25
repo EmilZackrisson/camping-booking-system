@@ -11,7 +11,7 @@ The database I chose is MongoDB.
 
 ## What I hope to learn with this project
 
-- Building an production ready product.
+- Building a production ready product.
 - Front- and back end development with APIs and databases.
 - Testing
 - CI/CD
