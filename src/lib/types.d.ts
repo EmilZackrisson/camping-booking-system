@@ -1,15 +1,15 @@
-interface IAccomodation {
-	_id: string;
+import type { Document } from 'mongoose';
+
+interface IAccomodation extends Document {
 	slotName: string;
 	location: string;
 	type: string;
 	prices: number[];
-	description: string;
+	description?: string;
 	electricity: boolean;
 }
 
-interface IBooking {
-	_id: string;
+interface IBooking extends Document {
 	firstName: string;
 	lastName: string;
 	email: string;
@@ -19,11 +19,10 @@ interface IBooking {
 	numberOfPersons: number;
 	Vehicles: [{ length: number; width: number; regNr: string; type: string }];
 	Accommodations: string;
-	notes: string;
+	notes?: string;
 }
 
-interface IEmployee {
-	_id: string;
+interface IEmployee extends Document {
 	firstName: string;
 	lastName: string;
 	email: string;
@@ -35,4 +34,13 @@ interface IEmployee {
 	sessions: [{ token: string; expires: Date }];
 }
 
-export { IAccomodation, IBooking, IEmployee };
+interface IFilteredEmployee extends Document {
+	firstName: string;
+	lastName: string;
+	email: string;
+	phone: string;
+	role: string;
+	notes?: string;
+}
+
+export { IAccomodation, IBooking, IEmployee, IFilteredEmployee };

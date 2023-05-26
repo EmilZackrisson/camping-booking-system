@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="ajsdasd">
-      <change afterPath="$PROJECT_DIR$/src/lib/types.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/bookings/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/bookings/+page.server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="Made types.d.ts">
+      <changelist_data name="Emil Zackrisson" email="51415707+emilzackrisson@users.noreply.github.com" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/bookings/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/bookings/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/employees/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/employees/+page.server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/employees/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/employees/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/api/admin/employees/+server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api/admin/employees/+server.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,9 +30,14 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Emil Zackrisson &lt;51415707+emilzackrisson@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="accomodations" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,7 +66,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "types",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/emilz/Documents/Projects/camping-booking-system",
     "node.js.detected.package.eslint": "true",
@@ -69,13 +76,14 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\prettier",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "project.scopes",
     "ts.external.directory.path": "C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\emilz\Documents\Projects\camping-booking-system\src\lib" />
       <recent name="C:\Users\emilz\Documents\Projects\camping-booking-system\src\routes\api\secure" />
     </key>
   </component>
@@ -135,7 +143,8 @@
       <workItem from="1685039406231" duration="3198000" />
       <workItem from="1685092118592" duration="1581000" />
       <workItem from="1685103791034" duration="2895000" />
-      <workItem from="1685123456953" duration="688000" />
+      <workItem from="1685123456953" duration="746000" />
+      <workItem from="1685131484630" duration="655000" />
     </task>
     <task id="LOCAL−00001" summary="Styled page.">
       <created>1685030481009</created>
@@ -191,7 +200,13 @@
       <option name="presentableId" value="LOCAL−00009" />
       <updated>1685123527293</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL−00010" summary="Made types.d.ts">
+      <created>1685124206289</created>
+      <option name="number" value="LOCAL−00010" />
+      <option name="presentableId" value="LOCAL−00010" />
+      <updated>1685124206289</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,6 +230,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="Styled page." />
     <MESSAGE value="Fixed small bugs" />
     <MESSAGE value="Started on Accomodation management" />
@@ -223,6 +239,9 @@
     <MESSAGE value="Formatted code" />
     <MESSAGE value="Changed all SvelteKit functions to arrow functions for types." />
     <MESSAGE value="ajsdasd" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajsdasd" />
+    <MESSAGE value="Made types.d.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made types.d.ts" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

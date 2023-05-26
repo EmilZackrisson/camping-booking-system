@@ -19,47 +19,6 @@
 
 <slot />
 
-<!-- <style>
-	:global(body) {
-		margin: 0;
-		font-family: sans-serif;
-	}
-
-	nav {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #fff;
-		box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-	}
-
-	ul {
-		display: flex;
-		list-style: none;
-	}
-
-	li {
-		margin: 0 1rem;
-	}
-
-	a {
-		text-decoration: none;
-		color: #000;
-	}
-
-	.left {
-		margin-left: auto;
-	}
-
-	.right {
-		margin-right: 3rem;
-	}
-
-	h3 {
-		margin-left: 5px;
-	}
-</style> -->
-
 <style global>
 	@tailwind base;
 	@tailwind components;

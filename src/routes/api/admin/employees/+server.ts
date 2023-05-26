@@ -4,6 +4,7 @@ import Employee from '../../../../models/Employee.js';
 import { env } from '$env/dynamic/private';
 import { validateAdmin } from '$lib/validateAccount';
 import type { RequestHandler } from './$types';
+import type { IEmployee } from '$lib/types';
 
 export const POST = (async (request) => {
 	const body = await request.request.json();
@@ -22,7 +23,7 @@ export const POST = (async (request) => {
 	const salt = await bcrypt.genSalt(10);
 	const passwordHash = await bcrypt.hash(body.password, salt);
 
-	const employee = new Employee({
+	const employee: IEmployee = new Employee({
 		_id: new mongoose.Types.ObjectId(),
 		firstName: body.firstName,
 		lastName: body.lastName,
