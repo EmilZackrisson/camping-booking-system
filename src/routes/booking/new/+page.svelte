@@ -94,13 +94,13 @@
 		}
 
 		// Check if motorhome reg nr is filled in
-		if (data.motorhomeRegNr === '' && data.motorhomeLength !== undefined) {
+		if (data.motorhomeRegNr === '' && data.motorhomeLength) {
 			alert('Du måste fylla i registreringsnummer på husbilen');
 			return;
 		}
 
 		// Check if caravan reg nr is filled in
-		if (data.caravanRegNr === '' && data.caravanLength !== undefined) {
+		if (data.caravanRegNr === '' && data.caravanLength) {
 			alert('Du måste fylla i registreringsnummer på husvagnen');
 			return;
 		}

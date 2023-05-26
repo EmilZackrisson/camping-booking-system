@@ -23,7 +23,7 @@ declare global {
 
 		Accommodations: string;
 
-		notes: string?;
+		notes?: string;
 	};
 
 	type Vehicle = {

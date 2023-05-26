@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import Employee from '../models/Employee';
 
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 async function getEmployees() {
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 	const employees = await Employee.find({});
 	await mongoose.disconnect();
 

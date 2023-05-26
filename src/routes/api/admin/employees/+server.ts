@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import Employee from '../../../../models/Employee.js';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { validateAdmin } from '$lib/validateAccount';
+import type { RequestHandler } from './$types';
 
-/** @type {import('./$types').RequestHandler}*/
-export async function POST(request) {
+export const POST = (async (request) => {
 	const body = await request.request.json();
 	console.log(body);
 
@@ -17,7 +17,7 @@ export async function POST(request) {
 		});
 	}
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const salt = await bcrypt.genSalt(10);
 	const passwordHash = await bcrypt.hash(body.password, salt);
@@ -41,10 +41,9 @@ export async function POST(request) {
 	await mongoose.disconnect();
 
 	return new Response(JSON.stringify({ employee }));
-}
+}) satisfies RequestHandler;
 
-/** @type {import('./$types').RequestHandler}*/
-export async function GET(request) {
+export const GET = (async (request) => {
 	const validatedAdmin = await validateAdmin(request.cookies.get('token') as string);
 
 	if (validatedAdmin.error) {
@@ -53,7 +52,7 @@ export async function GET(request) {
 		});
 	}
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const employees = await Employee.find({});
 
@@ -72,4 +71,4 @@ export async function GET(request) {
 	});
 
 	return new Response(JSON.stringify({ employees: filteredEmployees }));
-}
+}) satisfies RequestHandler;

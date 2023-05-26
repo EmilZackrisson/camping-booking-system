@@ -1,8 +1,8 @@
 import { getEmployees } from '$lib/employees';
 import { validateAdmin } from '$lib/validateAccount';
+import type { PageServerLoad } from './$types';
 
-/** @type {import('./$types').PageLoad} */
-export async function load({ cookies }) {
+export const load = (async ({ cookies }) => {
 	const validatedAdmin = await validateAdmin(cookies.get('token') as string);
 
 	if (validatedAdmin.error) {
@@ -18,4 +18,4 @@ export async function load({ cookies }) {
 	const x = JSON.parse(JSON.stringify(employees));
 
 	return { employees: x };
-}
+}) satisfies PageServerLoad;

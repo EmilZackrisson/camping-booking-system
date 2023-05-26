@@ -4,43 +4,23 @@
 	console.log(data);
 </script>
 
-<h1>Anställda</h1>
-
-<div class="nav-boxes">
-	<div class="nav-box">
-		<a href="/admin/employees/new">
-			<h2>Skapa konto för anställd</h2>
-		</a>
-	</div>
-</div>
-<section>
-	<h2>Hantera anställda</h2>
-	{#each data.employees as employee}
-		<div>
-			{employee.firstName}
-			{employee.lastName}
-			{employee.email}
-			{employee.phone}
-			{employee.role}
-			{employee._id}
-		</div>
-	{/each}
-</section>
-
-<style>
-	.nav-boxes {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-	}
-
-	.nav-box {
-		width: 200px;
-		height: 200px;
-		background-color: #fff;
-		border-radius: 5px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-	}
-</style>
+<main class="container text-center">
+	<h1 class="text-4xl font-semibold">Hantera anställda</h1>
+	<a href="/admin/employees/new" class="btn btn-ghost">
+		<h2>Skapa konto för anställd</h2>
+	</a>
+	<section>
+		{#each data.employees as employee}
+			<div class="flex flex-col bg-base-200 rounded-lg max-w-md p-3">
+				<p>{employee.firstName} {employee.lastName}</p>
+				<a href="mailto:{employee.email}" class="text-info">{employee.email}</a>
+				<a href="tel:{employee.phone}" class="text-info">{employee.phone}</a>
+				<p>Roll: {employee.role}</p>
+				<p>ID: {employee._id}</p>
+				{#if employee.notes}
+					<p>Anteckningar: {employee.notes}</p>
+				{/if}
+			</div>
+		{/each}
+	</section>
+</main>

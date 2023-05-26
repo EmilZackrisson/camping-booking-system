@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import Booking from '../../../models/Booking.js';
-import { env } from '$env/dynamic/private';
+import Accomodation from '../../../models/Accomodation';
 import { validateEmployee } from '$lib/validateAccount';
 import type { PageServerLoad } from './$types';
+import { env } from '$env/dynamic/private';
 
 export const load = (async ({ cookies }) => {
 	try {
@@ -19,15 +19,14 @@ export const load = (async ({ cookies }) => {
 
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const bookings = await Booking.find({}).sort({ dateArrival: -1 }).lean();
+		const accomodations = await Accomodation.find();
 
 		await mongoose.disconnect();
 
-		console.log(bookings);
+		console.log(accomodations);
 
-		return { bookings: JSON.stringify({ bookings }) };
-	} catch (error) {
-		console.log('GET BOOKING ERROR', error);
-		return { error };
+		return { accomodations: JSON.stringify({ accomodations }) };
+	} catch (e) {
+		console.log('GET ACCOMMODATION ERROR', e);
 	}
 }) satisfies PageServerLoad;

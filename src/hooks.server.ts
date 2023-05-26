@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import Employee from './models/Employee';
+import type { Handle } from '@sveltejs/kit';
 
-/** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ event, resolve }) {
-	if (event.url.pathname.startsWith('/admin')) {
+export const handle = (async ({ event, resolve }) => {
+	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/api/secure')) {
 		const cookie = event.cookies.get('token');
+
 		if (!cookie) {
 			return new Response('Unauthorized', { status: 401 });
 		}
@@ -26,7 +27,7 @@ export async function handle({ event, resolve }) {
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const employeeFromDb = await Employee.findOne({ sessions: { $elemMatch: { token: cookie } } });
 
@@ -37,10 +38,8 @@ export async function handle({ event, resolve }) {
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
-		const response = await resolve(event);
-		return response;
+		return resolve(event);
 	}
 
-	const response = await resolve(event);
-	return response;
-}
+	return resolve(event);
+}) satisfies Handle;

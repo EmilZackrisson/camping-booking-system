@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import Booking from '../../../models/Booking';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
-import type { RequestEvent } from './$types';
+import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
+import type { RequestHandler } from '@sveltejs/kit';
 
-export async function GET({ url }) {
+export const GET = (async ({ url }) => {
 	const id = url.searchParams.get('id');
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const booking = await Booking.findOne({ _id: id });
 
@@ -18,9 +18,9 @@ export async function GET({ url }) {
 	}
 
 	return new Response(JSON.stringify(booking));
-}
+}) satisfies RequestHandler;
 
-export async function POST({ request }: RequestEvent) {
+export const POST = (async ({ request }) => {
 	try {
 		console.log(request.body);
 
@@ -28,7 +28,7 @@ export async function POST({ request }: RequestEvent) {
 
 		console.log(body);
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const booking = new Booking(body);
 		booking._id = new mongoose.Types.ObjectId();
@@ -70,9 +70,9 @@ export async function POST({ request }: RequestEvent) {
 		console.log('ERROR POST /booking/new\n', error);
 		return new Response(JSON.stringify({ error: 'Something went wrong' }));
 	}
-}
+}) satisfies RequestHandler;
 
-export async function DELETE({ url, cookies }: RequestEvent) {
+export const DELETE = (async ({ url, cookies }) => {
 	try {
 		const token = cookies.get('token');
 
@@ -84,7 +84,7 @@ export async function DELETE({ url, cookies }: RequestEvent) {
 
 		const id = url.searchParams.get('id');
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const res = await Booking.deleteOne({ _id: id });
 
@@ -99,4 +99,4 @@ export async function DELETE({ url, cookies }: RequestEvent) {
 		console.log('ERROR DELETE /booking\n', error);
 		return new Response(JSON.stringify({ error: 'Something went wrong' }));
 	}
-}
+}) satisfies RequestHandler;

@@ -2,10 +2,10 @@ version: '3.1'
 
 services:
   camping-booking-system:
-    image: camping-booking-system
-    container_name: camping-booking-system
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/emilzackrisson/camping-booking-system:main
+    container_name: camping-booking-system-prod
+    environment:
+      - NODE_ENV=production
+      - MONGO_CONNECTION_STRING=mongodb://10.10.0.20:27018/camping-booking-system-prod
     ports:
-      - "3000:3000"
+      - '3000:3000'

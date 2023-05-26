@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import Employee from '../../../models/Employee.js';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
+import type { RequestHandler } from '@sveltejs/kit';
 
-/** @type {import('./$types').RequestHandler}*/
-export async function POST(request) {
+export const POST = (async (request) => {
 	const form = await request.request.json();
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const email = form.email;
 	const password = form.password;
@@ -43,7 +43,7 @@ export async function POST(request) {
 	await mongoose.disconnect();
 
 	return new Response(JSON.stringify({ token: token, expires: expires }));
-}
+}) satisfies RequestHandler;
 
 const rand = function () {
 	return Math.random().toString(36).substr(2); // remove `0.`

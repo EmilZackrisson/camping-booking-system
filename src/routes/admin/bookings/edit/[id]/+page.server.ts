@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import Booking from '../../../../../models/Booking';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
+import type { PageServerLoad } from './$types';
 
-/** @type {import('./$types').PageLoad} */
-export async function load({ params, cookies }) {
+export const load = (async ({ params, cookies }) => {
 	try {
 		const token = cookies.get('token');
 
@@ -18,7 +18,7 @@ export async function load({ params, cookies }) {
 
 		const id = params.id.replace('$', '');
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const booking = await Booking.findById(id);
 
@@ -39,4 +39,4 @@ export async function load({ params, cookies }) {
 		console.error(error);
 		return { error };
 	}
-}
+}) satisfies PageServerLoad;
