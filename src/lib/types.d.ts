@@ -1,4 +1,5 @@
 import type { Document } from 'mongoose';
+import type { Vehicle } from 'src/types';
 
 interface IAccomodation extends Document {
 	slotName: string;
@@ -17,7 +18,7 @@ interface IBooking extends Document {
 	dateArrival: Date;
 	dateDepart: Date;
 	numberOfPersons: number;
-	Vehicles: [{ length: number; width: number; regNr: string; type: string }];
+	Vehicles: Vehicle[];
 	Accommodations: string;
 	notes?: string;
 }

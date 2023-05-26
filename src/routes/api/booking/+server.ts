@@ -10,7 +10,7 @@ export const GET = (async ({ url }) => {
 
 	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-	const booking = await Booking.findOne({ _id: id });
+	const booking: IBooking | null = await Booking.findOne({ _id: id });
 
 	await mongoose.disconnect();
 
@@ -31,7 +31,7 @@ export const POST = (async ({ request }) => {
 
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const booking = new Booking(body);
+		const booking: IBooking = new Booking(body);
 		booking._id = new mongoose.Types.ObjectId();
 
 		const vehicles: Vehicle[] = [];
