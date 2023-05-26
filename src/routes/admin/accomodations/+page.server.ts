@@ -3,6 +3,7 @@ import Accomodation from '../../../models/Accomodation';
 import { validateEmployee } from '$lib/validateAccount';
 import type { PageServerLoad } from './$types';
 import { env } from '$env/dynamic/private';
+import type { IAccomodation } from '$lib/types';
 
 export const load = (async ({ cookies }) => {
 	try {
@@ -19,7 +20,7 @@ export const load = (async ({ cookies }) => {
 
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const accomodations = await Accomodation.find();
+		const accomodations: IAccomodation[] = await Accomodation.find();
 
 		await mongoose.disconnect();
 

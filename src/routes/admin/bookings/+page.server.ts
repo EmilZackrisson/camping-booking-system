@@ -3,6 +3,7 @@ import Booking from '../../../models/Booking.js';
 import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
 import type { PageServerLoad } from './$types';
+import type { IBooking } from '$lib/types';
 
 export const load = (async ({ cookies }) => {
 	try {
@@ -19,7 +20,7 @@ export const load = (async ({ cookies }) => {
 
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const bookings = await Booking.find({}).sort({ dateArrival: -1 }).lean();
+		const bookings: IBooking[] = await Booking.find({}).sort({ dateArrival: -1 }).lean();
 
 		await mongoose.disconnect();
 

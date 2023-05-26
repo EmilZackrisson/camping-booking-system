@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="" />
+    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="ajsdasd">
+      <change afterPath="$PROJECT_DIR$/src/lib/types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/accomodations/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/bookings/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/bookings/+page.server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,8 +22,8 @@
       <list>
         <option value="+page" />
         <option value="AddStällplatsModal" />
-        <option value="TypeScript File" />
         <option value="AccomodationCard" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -45,28 +52,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/emilz/Documents/Projects/camping-booking-system&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\prettier&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/emilz/Documents/Projects/camping-booking-system",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\prettier",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\emilz\Documents\Projects\camping-booking-system\src\routes\api\secure" />
@@ -128,6 +135,7 @@
       <workItem from="1685039406231" duration="3198000" />
       <workItem from="1685092118592" duration="1581000" />
       <workItem from="1685103791034" duration="2895000" />
+      <workItem from="1685123456953" duration="688000" />
     </task>
     <task id="LOCAL−00001" summary="Styled page.">
       <created>1685030481009</created>
@@ -177,7 +185,13 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1685106427156</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="ajsdasd">
+      <created>1685123527293</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1685123527293</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,6 +222,7 @@
     <MESSAGE value="Switched to dynamic enviroment variables for use in Docker." />
     <MESSAGE value="Formatted code" />
     <MESSAGE value="Changed all SvelteKit functions to arrow functions for types." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed all SvelteKit functions to arrow functions for types." />
+    <MESSAGE value="ajsdasd" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajsdasd" />
   </component>
 </project>
