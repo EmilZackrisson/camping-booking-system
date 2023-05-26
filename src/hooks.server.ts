@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { env } from '$env/dynamic/private';
 import Employee from './models/Employee';
-import type { Handle } from '@sveltejs/kit';
+//import type { Handle } from '@sveltejs/kit';
 
 export async function handle({ event, resolve }) {
 	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/api/secure')) {
