@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import Employee from '../../../../models/Employee.js';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { validateAdmin } from '$lib/validateAccount';
 
 /** @type {import('./$types').RequestHandler}*/
@@ -17,7 +17,7 @@ export async function POST(request) {
 		});
 	}
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const salt = await bcrypt.genSalt(10);
 	const passwordHash = await bcrypt.hash(body.password, salt);
@@ -53,7 +53,7 @@ export async function GET(request) {
 		});
 	}
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const employees = await Employee.find({});
 

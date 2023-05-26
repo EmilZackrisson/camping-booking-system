@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import Employee from '../../../models/Employee.js';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 /** @type {import('./$types').RequestHandler}*/
 export async function POST(request) {
 	const form = await request.request.json();
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const email = form.email;
 	const password = form.password;

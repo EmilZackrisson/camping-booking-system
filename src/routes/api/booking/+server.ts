@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import Booking from '../../../models/Booking';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import type { RequestEvent } from './$types';
 import { validateEmployee } from '$lib/validateAccount';
 
 export async function GET({ url }) {
 	const id = url.searchParams.get('id');
 
-	await mongoose.connect(MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 	const booking = await Booking.findOne({ _id: id });
 
@@ -28,7 +28,7 @@ export async function POST({ request }: RequestEvent) {
 
 		console.log(body);
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const booking = new Booking(body);
 		booking._id = new mongoose.Types.ObjectId();
@@ -84,7 +84,7 @@ export async function DELETE({ url, cookies }: RequestEvent) {
 
 		const id = url.searchParams.get('id');
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const res = await Booking.deleteOne({ _id: id });
 
