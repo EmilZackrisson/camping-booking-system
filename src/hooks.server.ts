@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import { env } from '$env/dynamic/private';
 import Employee from './models/Employee';
-//import type { Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
-export async function handle({ event, resolve }) {
+export const handle = (async ({ event, resolve }) => {
 	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/api/secure')) {
 		const cookie = event.cookies.get('token');
 
@@ -38,10 +38,8 @@ export async function handle({ event, resolve }) {
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
-		const response = await resolve(event);
-		return response;
+		return resolve(event);
 	}
 
-	const response = await resolve(event);
-	return response;
-}
+	return resolve(event);
+}) satisfies Handle;

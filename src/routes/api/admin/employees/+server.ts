@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 import Employee from '../../../../models/Employee.js';
 import { env } from '$env/dynamic/private';
 import { validateAdmin } from '$lib/validateAccount';
+import type { RequestHandler } from './$types';
 
-/** @type {import('./$types').RequestHandler}*/
-export async function POST(request) {
+export const POST = (async (request) => {
 	const body = await request.request.json();
 	console.log(body);
 
@@ -41,10 +41,9 @@ export async function POST(request) {
 	await mongoose.disconnect();
 
 	return new Response(JSON.stringify({ employee }));
-}
+}) satisfies RequestHandler;
 
-/** @type {import('./$types').RequestHandler}*/
-export async function GET(request) {
+export const GET = (async (request) => {
 	const validatedAdmin = await validateAdmin(request.cookies.get('token') as string);
 
 	if (validatedAdmin.error) {
@@ -72,4 +71,4 @@ export async function GET(request) {
 	});
 
 	return new Response(JSON.stringify({ employees: filteredEmployees }));
-}
+}) satisfies RequestHandler;
