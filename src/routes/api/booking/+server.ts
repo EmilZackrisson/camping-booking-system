@@ -34,20 +34,20 @@ export const POST = (async ({ request }) => {
 		const booking: IBooking = new Booking(body);
 		booking._id = new mongoose.Types.ObjectId();
 
-		const vehicles: Vehicle[] = [];
+		let vehicles: any = [];
 
 		if (body.caravanData) {
-			const caravanData: Vehicle = JSON.parse(body.caravanData);
+			const caravanData = JSON.parse(body.caravanData);
 			console.log('Caravan data: ', caravanData);
 			caravanData.type = 'Husvagn';
-			vehicles.push(caravanData);
+			vehicles = [...vehicles, caravanData];
 		}
 
 		if (body.motorhomeData) {
-			const motorhomeData: Vehicle = JSON.parse(body.motorhomeData);
+			const motorhomeData = JSON.parse(body.motorhomeData);
 			motorhomeData.type = 'Husbil';
 			console.log('Motorhome data: ', motorhomeData);
-			vehicles.push(motorhomeData);
+			vehicles = [...vehicles, motorhomeData];
 		}
 
 		booking.Vehicles = vehicles;

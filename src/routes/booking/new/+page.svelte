@@ -114,8 +114,9 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify(data)
-			}).then((data) => {
-				if (data.status !== 200) {
+			}).then(async (data) => {
+				const body = await data.json();
+				if (data.status !== 200 || body.error) {
 					alert('Något gick fel, försök igen');
 					return;
 				}

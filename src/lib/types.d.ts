@@ -18,7 +18,7 @@ interface IBooking extends Document {
 	dateArrival: Date;
 	dateDepart: Date;
 	numberOfPersons: number;
-	Vehicles: Vehicle[];
+	Vehicles: [{ type: string; regNr: string; length: number; width: number }];
 	Accommodations: string;
 	notes?: string;
 }

@@ -25,13 +25,6 @@ declare global {
 
 		notes?: string;
 	};
-
-	type Vehicle = {
-		length: number;
-		width: number;
-		regNr: string;
-		type: string;
-	};
 }
 
 export {};

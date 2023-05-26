@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="Set types to everything">
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/bookings/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/bookings/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/employees/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/employees/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/api/booking/+server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api/booking/+server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/booking/new/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/booking/new/+page.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,6 +127,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="" />
@@ -139,7 +144,7 @@
       <workItem from="1685092118592" duration="1581000" />
       <workItem from="1685103791034" duration="2895000" />
       <workItem from="1685123456953" duration="746000" />
-      <workItem from="1685131484630" duration="1171000" />
+      <workItem from="1685131484630" duration="2352000" />
     </task>
     <task id="LOCAL−00001" summary="Styled page.">
       <created>1685030481009</created>
@@ -207,7 +212,25 @@
       <option name="presentableId" value="LOCAL−00011" />
       <updated>1685132667004</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL−00012" summary="Set types to everything">
+      <created>1685132686188</created>
+      <option name="number" value="LOCAL−00012" />
+      <option name="presentableId" value="LOCAL−00012" />
+      <updated>1685132686189</updated>
+    </task>
+    <task id="LOCAL−00013" summary="Set types to everything">
+      <created>1685132758831</created>
+      <option name="number" value="LOCAL−00013" />
+      <option name="presentableId" value="LOCAL−00013" />
+      <updated>1685132758831</updated>
+    </task>
+    <task id="LOCAL−00014" summary="Set types to everything">
+      <created>1685133173003</created>
+      <option name="number" value="LOCAL−00014" />
+      <option name="presentableId" value="LOCAL−00014" />
+      <updated>1685133173003</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +265,5 @@
     <MESSAGE value="Made types.d.ts" />
     <MESSAGE value="Set types to everything" />
     <option name="LAST_COMMIT_MESSAGE" value="Set types to everything" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
