@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import Booking from '../../../models/Booking';
 import { env } from '$env/dynamic/private';
-import type { RequestEvent } from './$types';
 import { validateEmployee } from '$lib/validateAccount';
+import type { RequestHandler } from '@sveltejs/kit';
 
-export async function GET({ url }) {
+export const GET = (async ({ url }) => {
 	const id = url.searchParams.get('id');
 
 	await mongoose.connect(env.MONGO_CONNECTION_STRING);
@@ -18,9 +18,9 @@ export async function GET({ url }) {
 	}
 
 	return new Response(JSON.stringify(booking));
-}
+}) satisfies RequestHandler;
 
-export async function POST({ request }: RequestEvent) {
+export const POST = (async ({ request }) => {
 	try {
 		console.log(request.body);
 
@@ -70,9 +70,9 @@ export async function POST({ request }: RequestEvent) {
 		console.log('ERROR POST /booking/new\n', error);
 		return new Response(JSON.stringify({ error: 'Something went wrong' }));
 	}
-}
+}) satisfies RequestHandler;
 
-export async function DELETE({ url, cookies }: RequestEvent) {
+export const DELETE = (async ({ url, cookies }) => {
 	try {
 		const token = cookies.get('token');
 
@@ -99,4 +99,4 @@ export async function DELETE({ url, cookies }: RequestEvent) {
 		console.log('ERROR DELETE /booking\n', error);
 		return new Response(JSON.stringify({ error: 'Something went wrong' }));
 	}
-}
+}) satisfies RequestHandler;

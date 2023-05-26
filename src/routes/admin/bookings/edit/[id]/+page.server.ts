@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import Booking from '../../../../../models/Booking';
 import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
+import type { PageServerLoad } from './$types';
 
-/** @type {import('./$types').PageLoad} */
-export async function load({ params, cookies }) {
+export const load = (async ({ params, cookies }) => {
 	try {
 		const token = cookies.get('token');
 
@@ -39,4 +39,4 @@ export async function load({ params, cookies }) {
 		console.error(error);
 		return { error };
 	}
-}
+}) satisfies PageServerLoad;
