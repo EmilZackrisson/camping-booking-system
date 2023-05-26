@@ -10,4 +10,4 @@ const AccomodationSchema = new mongoose.Schema({
 	electricity: { type: Boolean, required: true }
 });
 
-export default mongoose.models.Booking || mongoose.model('Booking', AccomodationSchema);
+export default mongoose.models.Accomodation || mongoose.model('Accomodation', AccomodationSchema);

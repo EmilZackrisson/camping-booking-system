@@ -43,6 +43,8 @@ export const POST = (async ({ request, cookies }) => {
 
 		const res = await accomodation.save();
 
+		await mongoose.disconnect();
+
 		return new Response(JSON.stringify({ message: 'Added accomodation with id: ' + res._id }));
 	} catch (e) {
 		throw error(500);
