@@ -1,4 +1,9 @@
-<script lang="ts" ✂prettier:content✂="CglpbXBvcnQgdHlwZSB7SUZpbHRlcmVkRW1wbG95ZWV9IGZyb20gJyRsaWIvdHlwZXMnOwoKCWV4cG9ydCBsZXQgZGF0YTogYW55OwoJY29uc3QgZW1wbG95ZWVzOiBJRmlsdGVyZWRFbXBsb3llZSA9IGRhdGEuZW1wbG95ZWVzOwo=">{}</script>
+<script lang="ts">
+	import type { IFilteredEmployee } from '$lib/types';
+
+	export let data: any;
+	const employees: IFilteredEmployee = data.employees;
+</script>
 
 <main class="container text-center">
 	<h1 class="text-4xl font-semibold">Hantera anställda</h1>

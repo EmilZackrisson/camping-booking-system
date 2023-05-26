@@ -1,4 +1,19 @@
-<script lang="ts" ✂prettier:content✂="CglpbXBvcnQgQm9va2luZ0NhcmQgZnJvbSAnLi4vLi4vLi4vY29tcG9uZW50cy9Cb29raW5nQ2FyZC5zdmVsdGUnOwoJaW1wb3J0IHRvYXN0LCB7VG9hc3Rlcn0gZnJvbSAnc3ZlbHRlLWZyZW5jaC10b2FzdCc7CglpbXBvcnQgdHlwZSB7SUJvb2tpbmd9IGZyb20gJyRsaWIvdHlwZXMnOwoKCWV4cG9ydCBsZXQgZGF0YTsKCgljb25zdCBib29raW5nczogSUJvb2tpbmdbXSA9IEpTT04ucGFyc2UoZGF0YS5ib29raW5ncyBhcyBzdHJpbmcpLmJvb2tpbmdzOwoJLy8gY29uc29sZS5sb2coJ0Jvb2tpbmdzJywgYm9va2luZ3MpOwoKCWlmIChkYXRhLmVycm9yKSB7CgkJdG9hc3QuZXJyb3IoZGF0YS5lcnJvciBhcyBzdHJpbmcsIHsKCQkJZHVyYXRpb246IDUwMDAKCQl9KTsKCX0K">{}</script>
+<script lang="ts">
+	import BookingCard from '../../../components/BookingCard.svelte';
+	import toast, { Toaster } from 'svelte-french-toast';
+	import type { IBooking } from '$lib/types';
+
+	export let data;
+
+	const bookings: IBooking[] = JSON.parse(data.bookings as string).bookings;
+	// console.log('Bookings', bookings);
+
+	if (data.error) {
+		toast.error(data.error as string, {
+			duration: 5000
+		});
+	}
+</script>
 
 <Toaster />
 
