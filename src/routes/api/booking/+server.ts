@@ -3,6 +3,7 @@ import Booking from '../../../models/Booking';
 import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
 import type { RequestHandler } from '@sveltejs/kit';
+import type { IBooking } from '$lib/types';
 
 export const GET = (async ({ url }) => {
 	const id = url.searchParams.get('id');

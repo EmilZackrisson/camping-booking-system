@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="Made types.d.ts">
-      <changelist_data name="Emil Zackrisson" email="51415707+emilzackrisson@users.noreply.github.com" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types.d.ts" afterDir="false" />
+    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="Set types to everything">
       <change beforePath="$PROJECT_DIR$/src/routes/admin/bookings/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/bookings/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/employees/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/employees/+page.server.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/admin/employees/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/employees/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/api/admin/employees/+server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api/admin/employees/+server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/api/booking/+server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api/booking/+server.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +71,7 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\prettier",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "project.scopes",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -144,7 +139,7 @@
       <workItem from="1685092118592" duration="1581000" />
       <workItem from="1685103791034" duration="2895000" />
       <workItem from="1685123456953" duration="746000" />
-      <workItem from="1685131484630" duration="655000" />
+      <workItem from="1685131484630" duration="1171000" />
     </task>
     <task id="LOCAL−00001" summary="Styled page.">
       <created>1685030481009</created>
@@ -206,7 +201,13 @@
       <option name="presentableId" value="LOCAL−00010" />
       <updated>1685124206289</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL−00011" summary="Set types to everything">
+      <created>1685132667004</created>
+      <option name="number" value="LOCAL−00011" />
+      <option name="presentableId" value="LOCAL−00011" />
+      <updated>1685132667004</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +231,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="Styled page." />
     <MESSAGE value="Fixed small bugs" />
     <MESSAGE value="Started on Accomodation management" />
@@ -240,7 +240,8 @@
     <MESSAGE value="Changed all SvelteKit functions to arrow functions for types." />
     <MESSAGE value="ajsdasd" />
     <MESSAGE value="Made types.d.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made types.d.ts" />
+    <MESSAGE value="Set types to everything" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set types to everything" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
