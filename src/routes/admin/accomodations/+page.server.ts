@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import Accomodation from '../../../models/Accomodation';
 import { validateEmployee } from '$lib/validateAccount';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
 import type { PageServerLoad } from './$types';
+import { env } from '$env/dynamic/private';
 
 export const load = (async ({ cookies }) => {
 	try {
@@ -17,7 +17,7 @@ export const load = (async ({ cookies }) => {
 			};
 		}
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const accomodations = await Accomodation.find();
 

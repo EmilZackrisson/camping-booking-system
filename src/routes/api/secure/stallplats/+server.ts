@@ -3,7 +3,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { validateEmployee } from '$lib/validateAccount';
 import Accomodation from '../../../../models/Accomodation';
 import mongoose from 'mongoose';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { onOffToBoolean } from '$lib/utils';
 
 export const POST = (async ({ request, cookies }) => {
@@ -17,7 +17,7 @@ export const POST = (async ({ request, cookies }) => {
 	}
 
 	try {
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const electricity = onOffToBoolean(body.electricity);
 

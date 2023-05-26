@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import Employee from './models/Employee';
-import type { Handle } from '@sveltejs/kit';
+//import type { Handle } from '@sveltejs/kit';
 
 export async function handle({ event, resolve }) {
 	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/api/secure')) {
@@ -27,7 +27,7 @@ export async function handle({ event, resolve }) {
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const employeeFromDb = await Employee.findOne({ sessions: { $elemMatch: { token: cookie } } });
 

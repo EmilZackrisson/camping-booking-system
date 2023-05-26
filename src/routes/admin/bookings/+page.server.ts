@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Booking from '../../../models/Booking.js';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
 
 export async function load({ cookies }) {
@@ -16,7 +16,7 @@ export async function load({ cookies }) {
 			};
 		}
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const bookings = await Booking.find({}).sort({ dateArrival: -1 }).lean();
 

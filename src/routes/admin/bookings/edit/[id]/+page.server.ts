@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Booking from '../../../../../models/Booking';
-import { MONGO_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
 
 /** @type {import('./$types').PageLoad} */
@@ -18,7 +18,7 @@ export async function load({ params, cookies }) {
 
 		const id = params.id.replace('$', '');
 
-		await mongoose.connect(MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const booking = await Booking.findById(id);
 
