@@ -1,8 +1,6 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
-	"include": ["src/**/*", "src/node_modules", ".svelte-kit/ambient.d.ts",
-		"src/lib/types.d.ts"
-	],
+	"include": ["src/**/*", "src/node_modules", ".svelte-kit/ambient.d.ts", "src/lib/types.d.ts"],
 	"compilerOptions": {
 		"allowJs": true,
 		"checkJs": true,

@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let data: any;
+	import type { IBooking } from '$lib/types';
+
+	export let data: IBooking;
 	import { toast, Toaster } from 'svelte-french-toast';
 
 	async function deleteBooking() {
