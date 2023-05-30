@@ -19,7 +19,7 @@
 
 <slot />
 
-<style global lang="postcss">
+<style global>
 	@tailwind base;
 	@tailwind components;
 	@tailwind utilities;

@@ -214,7 +214,7 @@
 	</form>
 </section>
 
-<style lang="postcss">
+<style>
 	input[type='text'],
 	input[type='email'],
 	input[type='tel'],
