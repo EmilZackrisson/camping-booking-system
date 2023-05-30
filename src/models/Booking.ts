@@ -9,7 +9,7 @@ const BookingSchema = new mongoose.Schema({
 	dateArrival: Date,
 	dateDepart: Date,
 	numberOfPersons: Number,
-	Vehicles: [{ length: Number, width: Number, regNr: String, type: String }],
+	Vehicles: String,
 	Accommodations: String,
 	notes: String
 });
