@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let accomodation;
+	import type { IAccomodation } from '$lib/types';
+
+	export let accomodation: IAccomodation;
 </script>
 
 <div class="bg-base-200 p-3 rounded-lg">

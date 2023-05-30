@@ -2,7 +2,7 @@
 	import type { IFilteredEmployee } from '$lib/types';
 
 	export let data: never;
-	const { employees }: { employees: IFilteredEmployee } = data;
+	const { employees }: { employees: IFilteredEmployee[] } = data;
 </script>
 
 <main class="container text-center">
