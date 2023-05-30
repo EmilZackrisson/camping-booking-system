@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let data: any;
+	import type { IFilteredEmployee } from '$lib/types';
 
-	console.log(data);
+	export let data: never;
+	const { employees }: { employees: IFilteredEmployee } = data;
 </script>
 
 <main class="container text-center">
@@ -10,7 +11,7 @@
 		<h2>Skapa konto för anställd</h2>
 	</a>
 	<section>
-		{#each data.employees as employee}
+		{#each employees as employee}
 			<div class="flex flex-col bg-base-200 rounded-lg max-w-md p-3">
 				<p>{employee.firstName} {employee.lastName}</p>
 				<a href="mailto:{employee.email}" class="text-info">{employee.email}</a>

@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import Employee from '../../../models/Employee.js';
 import { env } from '$env/dynamic/private';
 import type { RequestHandler } from '@sveltejs/kit';
+import type { IEmployee } from '$lib/types';
 
 export const POST = (async (request) => {
 	const form = await request.request.json();
@@ -12,7 +13,7 @@ export const POST = (async (request) => {
 	const email = form.email;
 	const password = form.password;
 
-	const employee = await Employee.findOne({ email: email });
+	const employee: IEmployee | null = await Employee.findOne({ email: email });
 
 	console.log(employee);
 

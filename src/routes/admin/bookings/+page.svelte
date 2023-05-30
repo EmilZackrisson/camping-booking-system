@@ -1,10 +1,11 @@
 <script lang="ts">
 	import BookingCard from '../../../components/BookingCard.svelte';
 	import toast, { Toaster } from 'svelte-french-toast';
+	import type { IBooking } from '$lib/types';
 
 	export let data;
 
-	const bookings = JSON.parse(data.bookings as string).bookings;
+	const bookings: IBooking[] = JSON.parse(data.bookings as string).bookings;
 	// console.log('Bookings', bookings);
 
 	if (data.error) {

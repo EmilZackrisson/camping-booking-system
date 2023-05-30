@@ -3,13 +3,15 @@ import Booking from '../../../models/Booking';
 import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
 import type { RequestHandler } from '@sveltejs/kit';
+import type { IBooking } from '$lib/types';
+import { Vehicle } from '$lib/classes';
 
 export const GET = (async ({ url }) => {
 	const id = url.searchParams.get('id');
 
 	await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-	const booking = await Booking.findOne({ _id: id });
+	const booking: IBooking | null = await Booking.findOne({ _id: id });
 
 	await mongoose.disconnect();
 
@@ -26,30 +28,35 @@ export const POST = (async ({ request }) => {
 
 		const body = await request.json();
 
-		console.log(body);
+		console.log('New booking body.json', body);
 
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const booking = new Booking(body);
+		const booking: IBooking = new Booking(body);
 		booking._id = new mongoose.Types.ObjectId();
 
-		const vehicles: Vehicle[] = [];
+		let vehicles: Vehicle[] = [];
 
 		if (body.caravanData) {
-			const caravanData: Vehicle = JSON.parse(body.caravanData);
+			const caravanData = JSON.parse(body.caravanData);
 			console.log('Caravan data: ', caravanData);
-			caravanData.type = 'Husvagn';
-			vehicles.push(caravanData);
+			const vehicle = new Vehicle(caravanData.regNr, caravanData.length, 'Husvagn');
+
+			vehicles = [...vehicles, vehicle];
 		}
 
 		if (body.motorhomeData) {
-			const motorhomeData: Vehicle = JSON.parse(body.motorhomeData);
-			motorhomeData.type = 'Husbil';
-			console.log('Motorhome data: ', motorhomeData);
-			vehicles.push(motorhomeData);
+			const motorhomeData = JSON.parse(body.motorhomeData);
+
+			const vehicle = new Vehicle(motorhomeData.regNr, motorhomeData.length, 'Husbil');
+
+			console.log('Motorhome data: ', vehicle);
+			vehicles = [...vehicles, vehicle];
 		}
 
-		booking.Vehicles = vehicles;
+		console.log('Vehicles: ', vehicles);
+
+		booking.Vehicles = JSON.stringify(vehicles);
 
 		booking.dateArrival = new Date(body.dateArrival);
 		booking.dateDepart = new Date(body.dateDepart);

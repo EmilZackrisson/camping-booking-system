@@ -1,6 +1,7 @@
 import { getEmployees } from '$lib/employees';
 import { validateAdmin } from '$lib/validateAccount';
 import type { PageServerLoad } from './$types';
+import type { IFilteredEmployee } from '$lib/types';
 
 export const load = (async ({ cookies }) => {
 	const validatedAdmin = await validateAdmin(cookies.get('token') as string);
@@ -11,11 +12,11 @@ export const load = (async ({ cookies }) => {
 		});
 	}
 
-	const employees = await getEmployees();
+	const employees: IFilteredEmployee[] = await getEmployees();
 
 	console.log(employees);
 
-	const x = JSON.parse(JSON.stringify(employees));
+	const x: IFilteredEmployee = JSON.parse(JSON.stringify(employees));
 
 	return { employees: x };
 }) satisfies PageServerLoad;

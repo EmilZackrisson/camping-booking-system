@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="" />
+    <list default="true" id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="Bug">
+      <change afterPath="$PROJECT_DIR$/src/lib/classes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Booking.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Booking.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/api/booking/+server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api/booking/+server.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,15 +21,20 @@
       <list>
         <option value="+page" />
         <option value="AddStällplatsModal" />
-        <option value="TypeScript File" />
         <option value="AccomodationCard" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Emil Zackrisson &lt;51415707+emilzackrisson@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="accomodations" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,7 +63,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;types&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/emilz/Documents/Projects/camping-booking-system&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -62,13 +73,14 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\prettier&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\emilz\\Documents\\Projects\\camping-booking-system\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\emilz\Documents\Projects\camping-booking-system\src\lib" />
       <recent name="C:\Users\emilz\Documents\Projects\camping-booking-system\src\routes\api\secure" />
     </key>
   </component>
@@ -115,6 +127,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="d2c3004a-ce0c-4858-9205-e08760966caf" name="Changes" comment="" />
@@ -128,6 +143,12 @@
       <workItem from="1685039406231" duration="3198000" />
       <workItem from="1685092118592" duration="1581000" />
       <workItem from="1685103791034" duration="2895000" />
+      <workItem from="1685123456953" duration="746000" />
+      <workItem from="1685131484630" duration="2455000" />
+      <workItem from="1685378149481" duration="48000" />
+      <workItem from="1685378209828" duration="242000" />
+      <workItem from="1685460024025" duration="297000" />
+      <workItem from="1685460603065" duration="734000" />
     </task>
     <task id="LOCAL−00001" summary="Styled page.">
       <created>1685030481009</created>
@@ -177,7 +198,49 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1685106427156</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="ajsdasd">
+      <created>1685123527293</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1685123527293</updated>
+    </task>
+    <task id="LOCAL−00010" summary="Made types.d.ts">
+      <created>1685124206289</created>
+      <option name="number" value="LOCAL−00010" />
+      <option name="presentableId" value="LOCAL−00010" />
+      <updated>1685124206289</updated>
+    </task>
+    <task id="LOCAL−00011" summary="Set types to everything">
+      <created>1685132667004</created>
+      <option name="number" value="LOCAL−00011" />
+      <option name="presentableId" value="LOCAL−00011" />
+      <updated>1685132667004</updated>
+    </task>
+    <task id="LOCAL−00012" summary="Set types to everything">
+      <created>1685132686188</created>
+      <option name="number" value="LOCAL−00012" />
+      <option name="presentableId" value="LOCAL−00012" />
+      <updated>1685132686189</updated>
+    </task>
+    <task id="LOCAL−00013" summary="Set types to everything">
+      <created>1685132758831</created>
+      <option name="number" value="LOCAL−00013" />
+      <option name="presentableId" value="LOCAL−00013" />
+      <updated>1685132758831</updated>
+    </task>
+    <task id="LOCAL−00014" summary="Set types to everything">
+      <created>1685133173003</created>
+      <option name="number" value="LOCAL−00014" />
+      <option name="presentableId" value="LOCAL−00014" />
+      <updated>1685133173003</updated>
+    </task>
+    <task id="LOCAL−00015" summary="Bug">
+      <created>1685133968539</created>
+      <option name="number" value="LOCAL−00015" />
+      <option name="presentableId" value="LOCAL−00015" />
+      <updated>1685133968539</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,6 +271,10 @@
     <MESSAGE value="Switched to dynamic enviroment variables for use in Docker." />
     <MESSAGE value="Formatted code" />
     <MESSAGE value="Changed all SvelteKit functions to arrow functions for types." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed all SvelteKit functions to arrow functions for types." />
+    <MESSAGE value="ajsdasd" />
+    <MESSAGE value="Made types.d.ts" />
+    <MESSAGE value="Set types to everything" />
+    <MESSAGE value="Bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug" />
   </component>
 </project>

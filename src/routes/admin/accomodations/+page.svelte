@@ -1,8 +1,9 @@
 <script lang="ts">
 	import AddStallplatsModal from '../../../components/AddStallplatsModal.svelte';
 	import AccomodationCard from '../../../components/AccomodationCard.svelte';
+	import type { IAccomodation } from '$lib/types';
 	export let data;
-	const accomodations = JSON.parse(data.accomodations).accomodations;
+	const accomodations: IAccomodation = JSON.parse(data.accomodations).accomodations;
 	console.log(accomodations);
 </script>
 
