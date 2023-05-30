@@ -1,14 +1,16 @@
 import mongoose from 'mongoose';
 import Employee from '../models/Employee';
 
+import type { IEmployee } from '$lib/types';
+
 import { env } from '$env/dynamic/private';
 
 async function getEmployees() {
 	await mongoose.connect(env.MONGO_CONNECTION_STRING);
-	const employees = await Employee.find({});
+	const employees: IEmployee[] = await Employee.find({});
 	await mongoose.disconnect();
 
-	const filteredEmployees = employees.map((employee) => {
+	return employees.map((employee) => {
 		return {
 			_id: employee._id,
 			firstName: employee.firstName,
@@ -17,10 +19,8 @@ async function getEmployees() {
 			phone: employee.phone,
 			role: employee.role,
 			notes: employee.notes
-		};
+		} as IEmployee;
 	});
-
-	return filteredEmployees;
 }
 
 export { getEmployees };

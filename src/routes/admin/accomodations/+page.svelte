@@ -2,8 +2,11 @@
 	import AddStallplatsModal from '../../../components/AddStallplatsModal.svelte';
 	import AccomodationCard from '../../../components/AccomodationCard.svelte';
 	import type { IAccomodation } from '$lib/types';
-	export let data;
-	const accomodations: IAccomodation = JSON.parse(data.accomodations).accomodations;
+	export let data: string | undefined;
+	const accomodations: IAccomodation[] = data
+		? (JSON.parse(data).accomodations as IAccomodation[])
+		: [];
+
 	console.log(accomodations);
 </script>
 
@@ -22,5 +25,4 @@
 <!--suppress XmlInvalidId -->
 <label for="openAddModal" class="btn">Lägg till Ställplats</label>
 
-<!-- Put this part before </body> tag -->
-<AddStallplatsModal id="openAddModal" />
+<AddStallplatsModal />
