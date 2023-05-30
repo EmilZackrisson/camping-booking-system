@@ -10,7 +10,7 @@
 	</div>
 </section>
 
-<style lang="postcss">
+<style>
 	a {
 		@apply text-blue-500;
 	}

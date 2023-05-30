@@ -52,7 +52,7 @@
 	</form>
 </section>
 
-<style lang="postcss">
+<style>
 	:global(body) {
 		margin: 0;
 		font-family: sans-serif;

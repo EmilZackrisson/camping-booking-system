@@ -18,7 +18,7 @@ export const POST = (async (request) => {
 		});
 	}
 
-	await mongoose.connect(env.MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 
 	const salt = await bcrypt.genSalt(10);
 	const passwordHash = await bcrypt.hash(body.password, salt);
@@ -53,7 +53,7 @@ export const GET = (async (request) => {
 		});
 	}
 
-	await mongoose.connect(env.MONGO_CONNECTION_STRING);
+	await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 
 	const employees = await Employee.find({});
 
