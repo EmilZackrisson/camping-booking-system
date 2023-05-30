@@ -108,7 +108,7 @@
 		try {
 			console.log(data);
 
-			await fetch('http://localhost:5173/api/booking', {
+			await fetch(`/api/booking`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
