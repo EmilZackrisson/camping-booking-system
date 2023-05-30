@@ -8,7 +8,7 @@ export const handle = (async ({ event, resolve }) => {
 		const cookie = event.cookies.get('token');
 
 		if (!cookie) {
-			return new Response('Unauthorized', { status: 401 });
+			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
 		const expires = event.cookies.get('expires');
