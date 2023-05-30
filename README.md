@@ -4,6 +4,9 @@
 
 This project is primarily for learning purposes and is currently not remotely close to a stable version.
 
+### Github Project
+https://github.com/users/EmilZackrisson/projects/4/views/1
+
 ## About this project
 
 This project uses SvelteKit for both front end and back end.
