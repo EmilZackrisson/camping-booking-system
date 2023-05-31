@@ -4,10 +4,13 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:svelte/recommended',
-		'prettier'
+		'prettier',
+		"plugin:jest/recommended",
+		"plugin:jest-dom/recommended",
+		"plugin:testing-library/dom"
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
+	plugins: ['@typescript-eslint', "jest", "jest-dom", "svelte", "testing-library"],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -16,7 +19,8 @@ module.exports = {
 	env: {
 		browser: true,
 		es2017: true,
-		node: true
+		node: true,
+		"jest/globals": true,
 	},
 	overrides: [
 		{
@@ -26,5 +30,8 @@ module.exports = {
 				parser: '@typescript-eslint/parser'
 			}
 		}
-	]
+	],
+	rules: {
+		"testing-library/prefer-user-event": "error",
+	}
 };
