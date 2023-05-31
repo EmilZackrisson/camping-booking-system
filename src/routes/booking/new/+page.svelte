@@ -121,6 +121,7 @@
 					return;
 				}
 				console.log('Success');
+				console.log('Booking id:', body._id);
 				const form: HTMLFormElement = document.getElementById('form') as HTMLFormElement;
 				form.reset();
 				toast.success('Bokning skickad!', {
