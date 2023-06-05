@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { toast, Toaster } from 'svelte-french-toast';
+
 	async function createAccount(e: Event) {
 		e.preventDefault();
 
@@ -10,21 +12,45 @@
 			return;
 		}
 
-		await fetch('/admin/employees', {
+		await fetch('/api/secure/employee', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(data)
 		})
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+			.then((res) => {
+				if (res.status === 200) {
+					toast.success('Kontot skapades', {
+						duration: 3000,
+						position: 'top-right'
+					});
+
+					// Redirect user to admin page after 3 seconds
+					setTimeout(() => {
+						window.location.href = '/admin/employees';
+					}, 3000);
+				} else {
+					toast.error('Kunde inte skapa konto', {
+						duration: 3000,
+						position: 'top-right'
+					});
+				}
+			})
+			.catch((err) => {
+				console.error(err);
+				toast.error('Kunde inte skapa konto', {
+					duration: 3000,
+					position: 'top-right'
+				});
+			});
 	}
 </script>
 
+<Toaster />
 <section>
-	<form on:submit={createAccount}>
-		<h1>Skapa konto för anställd</h1>
+	<form on:submit={createAccount} class="container flex flex-col gap-3">
+		<h1 class="text-3xl font-semibold text-center">Skapa konto för anställd</h1>
 		<label for="firstName">Förnamn</label>
 		<input type="text" name="firstName" id="firstName" required />
 		<label for="lastName">Efternamn</label>
@@ -42,49 +68,20 @@
 		<input type="password" name="password" id="password" required />
 		<label for="passwordConfirm">Bekräfta lösenord</label>
 		<input type="password" name="passwordConfirm" id="passwordConfirm" required />
-		<button type="submit">Skapa</button>
+		<button type="submit" class="btn btn-primary">Skapa konto för anställd</button>
 	</form>
 </section>
 
-<style>
-	:global(body) {
-		margin: 0;
-		font-family: sans-serif;
-	}
-
+<style lang="postcss">
 	form {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		max-width: 500px;
-		margin: 20px;
-		padding: 1rem;
-		background-color: #fff;
-		border-radius: 5px;
-	}
-
-	label {
-		margin-top: 1rem;
+		@apply w-full max-w-lg;
 	}
 
 	input {
-		padding: 0.5rem;
-		border: 1px solid #ccc;
-		border-radius: 5px;
+		@apply input input-bordered w-full;
 	}
 
 	select {
-		padding: 0.5rem;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-	}
-
-	button {
-		margin-top: 1rem;
-		padding: 0.5rem;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		background-color: #eee;
-		cursor: pointer;
+		@apply select select-bordered w-full;
 	}
 </style>

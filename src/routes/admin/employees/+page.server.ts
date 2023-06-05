@@ -1,4 +1,4 @@
-import { getEmployees } from '$lib/employees';
+import { getEmployees } from '$lib/db';
 import { validateAdmin } from '$lib/validateAccount';
 import type { PageServerLoad } from './$types';
 import type { IFilteredEmployee } from '$lib/types';
