@@ -37,13 +37,23 @@ export const POST = (async (request) => {
 	const expires = new Date();
 	expires.setDate(expires.getDate() + 7);
 
+	const { firstName, lastName, role } = employee;
+
 	await employee.updateOne({
 		sessions: [...employee.sessions, { token: token, expires: expires }]
 	});
 
 	await mongoose.disconnect();
 
-	return new Response(JSON.stringify({ token: token, expires: expires }));
+	return new Response(
+		JSON.stringify({
+			token: token,
+			expires: expires,
+			firstName: firstName,
+			lastName: lastName,
+			role: role
+		})
+	);
 }) satisfies RequestHandler;
 
 const rand = function () {

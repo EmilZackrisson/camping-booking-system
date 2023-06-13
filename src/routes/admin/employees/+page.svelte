@@ -10,9 +10,9 @@
 	<a href="/admin/employees/new" class="btn btn-ghost">
 		<h2>Skapa konto för anställd</h2>
 	</a>
-	<section>
+	<section class="flex flex-wrap items-start gap-3">
 		{#each employees as employee}
-			<div class="flex flex-col bg-base-200 rounded-lg max-w-md p-3">
+			<div class="flex flex-col bg-base-200 rounded-lg max-w-md p-5">
 				<p>{employee.firstName} {employee.lastName}</p>
 				<a href="mailto:{employee.email}" class="text-info">{employee.email}</a>
 				<a href="tel:{employee.phone}" class="text-info">{employee.phone}</a>
@@ -21,6 +21,8 @@
 				{#if employee.notes}
 					<p>Anteckningar: {employee.notes}</p>
 				{/if}
+
+				<a href="/admin/employees/manage/{employee._id}" class="btn btn-ghost">Hantera</a>
 			</div>
 		{/each}
 	</section>
