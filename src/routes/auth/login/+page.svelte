@@ -32,7 +32,7 @@
 </script>
 
 <section>
-	<form on:submit={login} class="flex p-5 bg-base-100 rounded-md flex-col lg:w-1/4">
+	<form on:submit={login} class="flex p-5 bg-base-100 rounded-md flex-col container max-w-2xl">
 		<h1 class="text-xl">Logga in</h1>
 		<div class="form-control w-full">
 			<label class="label" for="email">
