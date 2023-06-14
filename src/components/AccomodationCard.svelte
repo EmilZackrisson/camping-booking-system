@@ -2,6 +2,8 @@
 	import type { IAccomodation } from '$lib/types';
 
 	export let accomodation: IAccomodation;
+
+	console.log(accomodation);
 </script>
 
 <div class="bg-base-200 p-3 rounded-lg">
