@@ -3,13 +3,7 @@
 
 	export let data: any;
 
-	let employees: IFilteredEmployee[] = [];
-
-	if (data.error) {
-		console.error(data.error);
-	} else {
-		employees = data;
-	}
+	const { employees }: { employees: IFilteredEmployee[] } = data;
 </script>
 
 {#if data.error}

@@ -1,22 +1,40 @@
 <script lang="ts">
+	let prices = {
+		priceDay1: 0,
+		priceDay2: 0,
+		priceDay3: 0,
+		priceDay4: 0,
+		priceDay5: 0,
+		priceDay6: 0,
+		priceDay7: 0
+	};
+
 	async function add(e: Event) {
 		const form = e.target as HTMLFormElement;
 		const formData = new FormData(form);
 		const data = Object.fromEntries(formData.entries());
+
+		// Remove form prices from data
+		for (let i = 1; i <= 7; i++) {
+			delete data[`priceDay${i}`];
+		}
 
 		const response = await fetch('/api/secure/stallplats', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(data)
+			body: JSON.stringify({
+				...data,
+				prices
+			})
 		});
 
 		if (response.ok) {
 			const json = await response.json();
 			console.log(json);
 
-			form.reset();
+			window.location.reload();
 		}
 
 		return false;
@@ -45,19 +63,19 @@
 			<div class="flex flex-col">
 				<p>Priser</p>
 				<label for="priceDay1">En Dag</label>
-				<input type="number" name="priceDay1" id="priceDay1" />
+				<input type="number" name="priceDay1" id="priceDay1" bind:value={prices.priceDay1} />
 				<label for="priceDay2">Två Dagar</label>
-				<input type="number" name="priceDay2" id="priceDay2" />
+				<input type="number" name="priceDay2" id="priceDay2" bind:value={prices.priceDay2} />
 				<label for="priceDay3">Tre Dagar</label>
-				<input type="number" name="priceDay3" id="priceDay3" />
+				<input type="number" name="priceDay3" id="priceDay3" bind:value={prices.priceDay3} />
 				<label for="priceDay4">Fyra Dagar</label>
-				<input type="number" name="priceDay4" id="priceDay4" />
+				<input type="number" name="priceDay4" id="priceDay4" bind:value={prices.priceDay4} />
 				<label for="priceDay5">Fem Dagar</label>
-				<input type="number" name="priceDay5" id="priceDay5" />
+				<input type="number" name="priceDay5" id="priceDay5" bind:value={prices.priceDay5} />
 				<label for="priceDay6">Sex Dagar</label>
-				<input type="number" name="priceDay6" id="priceDay6" />
+				<input type="number" name="priceDay6" id="priceDay6" bind:value={prices.priceDay6} />
 				<label for="priceDay7">Sju Dagar</label>
-				<input type="number" name="priceDay7" id="priceDay7" />
+				<input type="number" name="priceDay7" id="priceDay7" bind:value={prices.priceDay7} />
 			</div>
 			<div class="modal-action">
 				<label for="openAddModal" class="btn">Stäng</label>

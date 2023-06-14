@@ -1,6 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { getEmployee } from '$lib/db';
 import { validateAdmin } from '$lib/validateAccount';
+import type { IFilteredEmployee } from '$lib/types';
 
 export const load = (async ({ params, cookies }) => {
 	const employeeId = params.id;
@@ -30,6 +31,16 @@ export const load = (async ({ params, cookies }) => {
 			status: 404
 		});
 	}
+
+	const filteredEmployee = {
+		firstName: employee.firstName,
+		lastName: employee.lastName,
+		email: employee.email,
+		phone: employee.phone,
+		role: employee.role,
+		notes: employee.notes,
+		_id: employee._id
+	} as IFilteredEmployee;
 
 	return { employee: JSON.parse(JSON.stringify(employee)) };
 }) satisfies PageServerLoad;

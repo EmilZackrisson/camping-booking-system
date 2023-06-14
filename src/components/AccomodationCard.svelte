@@ -16,6 +16,8 @@
 	</div>
 	<div>
 		<h4 class="text-lg font-semibold">Pris</h4>
-		<!--<p>{accomodation.price[0]} kr</p>-->
+		{#each accomodation.prices as price, i}
+			<p>Dag {i + 1} - {price} SEK</p>
+		{/each}
 	</div>
 </div>

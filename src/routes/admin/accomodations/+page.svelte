@@ -8,8 +8,11 @@
 	/*console.log(accomodations.accomodations);*/
 </script>
 
-<main class="container">
-	<div class="flex flex-wrap w-full">
+<main class="container flex flex-col items-center">
+	<h1 class="font-semibold text-4xl">Boenden</h1>
+	<!--suppress XmlInvalidId -->
+	<label for="openAddModal" class="btn">Lägg till Ställplats</label>
+	<div class="flex flex-wrap w-full gap-5 mt-3">
 		{#if accomodations.accomodations}
 			{#each accomodations.accomodations as accomodation}
 				{#if accomodation.type === 'Ställplats'}
@@ -19,8 +22,5 @@
 		{/if}
 	</div>
 </main>
-
-<!--suppress XmlInvalidId -->
-<label for="openAddModal" class="btn">Lägg till Ställplats</label>
 
 <AddStallplatsModal />

@@ -70,13 +70,18 @@
 				</h3>
 
 				<label for="password" class="label">Nytt lösenord</label>
-				<input type="password" id="password" class="input input-bordered" bind:value={password} />
+				<input
+					type="password"
+					id="password"
+					class="input input-bordered w-full"
+					bind:value={password}
+				/>
 
 				<label for="confirmPassword" class="label">Bekräfta lösenord</label>
 				<input
 					type="password"
 					id="confirmPassword"
-					class="input input-bordered"
+					class="input input-bordered w-full"
 					bind:value={confirmPassword}
 				/>
 
