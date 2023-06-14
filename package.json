@@ -42,7 +42,7 @@
 		"bcrypt": "^5.1.0",
 		"daisyui": "^3.0.3",
 		"js-cookie": "^3.0.5",
-		"mongoose": "^7.2.2",
+		"mongoose": "^7.2.3",
 		"svelte-french-toast": "^1.0.4-beta.0"
 	}
 }
