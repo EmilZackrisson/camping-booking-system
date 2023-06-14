@@ -1,3 +1,16 @@
+<script lang="ts">
+	import Cookies from 'js-cookie';
+
+	function logout() {
+		Cookies.remove('token');
+		Cookies.remove('expires');
+		window.location.href = '/';
+	}
+
+	let role = Cookies.get('role');
+	let token = Cookies.get('token');
+</script>
+
 <nav class="navbar bg-base-100">
 	<div class="navbar-start">
 		<!-- Dropdown navigation for mobile devices -->
@@ -25,12 +38,19 @@
 						<summary>Admin</summary>
 						<ul class="p-3 flex flex-col gap-2">
 							<li><a href="/admin/bookings">Bokningar</a></li>
-							<li><a href="/admin/employees">Anställda</a></li>
+							{#if role === 'Admin'}
+								<li><a href="/admin/employees">Anställda</a></li>
+							{/if}
 							<li><a href="/admin/accomodations">Boenden</a></li>
 						</ul>
 					</details>
 				</li>
 				<li><a href="/booking/new">Skapa bokning</a></li>
+				{#if token === undefined}
+					<li><a href="/auth/login">Logga in</a></li>
+				{:else}
+					<li><button on:click={logout} class="hover:btn-error">Logga ut</button></li>
+				{/if}
 			</ul>
 		</details>
 
@@ -52,12 +72,19 @@
 					<summary class="justify-between"> Admin </summary>
 					<ul class="p-2">
 						<li><a href="/admin/bookings">Bokningar</a></li>
-						<li><a href="/admin/employees">Anställda</a></li>
+						{#if role === 'Admin'}
+							<li><a href="/admin/employees">Anställda</a></li>
+						{/if}
 						<li><a href="/admin/accomodations">Boenden</a></li>
 					</ul>
 				</details>
 			</li>
 			<li><a href="/booking/new">Skapa bokning</a></li>
+			{#if token === undefined}
+				<li><a href="/auth/login">Logga in</a></li>
+			{:else}
+				<li><button on:click={logout} class="hover:btn-error">Logga ut</button></li>
+			{/if}
 		</ul>
 	</div>
 </nav>

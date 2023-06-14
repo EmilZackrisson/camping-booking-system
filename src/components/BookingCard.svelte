@@ -36,8 +36,8 @@
 		<p>Antal personer: {data.numberOfPersons}</p>
 		<p>Bokningsnummer: {data._id}</p>
 	</div>
-	<a href="/admin/bookings/edit/{data._id}" class="btn hover:btn-primary">Ändra</a>
-	<label for="deleteModal" class="btn hover:btn-error">Ta bort</label>
+	<a href="/admin/bookings/edit/{data._id}" class="btn hover:btn-primary btn-outline">Ändra</a>
+	<label for="deleteModal" class="btn hover:btn-error btn-outline">Ta bort</label>
 </section>
 
 <input type="checkbox" id="deleteModal" class="modal-toggle" />

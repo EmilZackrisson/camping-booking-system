@@ -23,7 +23,6 @@ export const handle = (async ({ event, resolve }) => {
 
 		if (now > expiresDate) {
 			console.log('Redirecting to login', now, expiresDate);
-
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
