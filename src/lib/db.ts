@@ -100,11 +100,24 @@ async function createEmployee(employee: {
 	}
 }
 
+async function getBookings() {
+	try {
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		const bookings: IBooking[] = await Booking.find().lean();
+		await mongoose.disconnect();
+		return bookings;
+	} catch (e) {
+		console.log('GET BOOKINGS ERROR', e);
+		throw e;
+	}
+}
+
 export {
 	getAccomodation,
 	getAccomodations,
 	createAccomodation,
 	getEmployees,
 	getEmployee,
-	createEmployee
+	createEmployee,
+	getBookings
 };

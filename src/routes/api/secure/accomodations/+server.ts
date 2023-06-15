@@ -44,3 +44,25 @@ export const POST = (async ({ request, cookies }) => {
 		throw error(500);
 	}
 }) satisfies RequestHandler;
+
+export const GET = (async ({ cookies }) => {
+	const token = cookies.get('token');
+
+	const validatedEmployee = await validateEmployee(token as string);
+
+	if (validatedEmployee.error) {
+		throw error(validatedEmployee.status, validatedEmployee.error);
+	}
+
+	try {
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+
+		const accomodations = await Accomodation.find({}).lean();
+
+		await mongoose.disconnect();
+
+		return new Response(JSON.stringify({ accomodations }));
+	} catch (e) {
+		throw error(500);
+	}
+}) satisfies RequestHandler;

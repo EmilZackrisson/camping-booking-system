@@ -2,19 +2,21 @@
 	import BookingCard from '../../../components/BookingCard.svelte';
 	import toast, { Toaster } from 'svelte-french-toast';
 	import type { IBooking } from '$lib/types';
+	import { onMount } from 'svelte';
 
-	export let data = {
-		bookings: [],
-		error: ''
-	};
+	let bookings: IBooking[];
 
-	const bookings: IBooking[] = JSON.parse(data.bookings as string).bookings;
-	// console.log('Bookings', bookings);
-
-	if (data.error) {
-		toast.error(data.error as string, {
-			duration: 5000
+	onMount(async () => {
+		bookings = await getBookings().then((bookings) => {
+			console.log(bookings);
+			return bookings;
 		});
+	});
+
+	async function getBookings() {
+		const res = await fetch('/api/bookings');
+		const data = await res.json();
+		return data;
 	}
 </script>
 
