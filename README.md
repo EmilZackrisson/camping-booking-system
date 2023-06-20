@@ -1,4 +1,6 @@
 [![wakatime](https://wakatime.com/badge/user/fcf09b34-3e52-435a-8e43-d39b7209274c/project/40466a06-40ef-4098-9b33-25311ec95c79.svg)](https://wakatime.com/badge/user/fcf09b34-3e52-435a-8e43-d39b7209274c/project/40466a06-40ef-4098-9b33-25311ec95c79)
+[![Docker Build](https://github.com/EmilZackrisson/camping-booking-system/actions/workflows/docker-publish.yml/badge.svg?branch=main)](https://github.com/EmilZackrisson/camping-booking-system/actions/workflows/docker-publish.yml)
+[![Lint](https://github.com/EmilZackrisson/camping-booking-system/actions/workflows/lint.yml/badge.svg?branch=develop)](https://github.com/EmilZackrisson/camping-booking-system/actions/workflows/lint.yml)
 
 # Camping Booking System
 
