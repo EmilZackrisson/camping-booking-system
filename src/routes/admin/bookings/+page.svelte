@@ -2,19 +2,27 @@
 	import BookingCard from '../../../components/BookingCard.svelte';
 	import toast, { Toaster } from 'svelte-french-toast';
 	import type { IBooking } from '$lib/types';
+	import { onMount } from 'svelte';
+	import { bookingsStore } from '$lib/stores';
 
-	export let data = {
-		bookings: [],
-		error: ''
-	};
+	let bookings: IBooking[];
 
-	const bookings: IBooking[] = JSON.parse(data.bookings as string).bookings;
-	// console.log('Bookings', bookings);
+	bookingsStore.subscribe((value) => {
+		bookings = value;
+	});
 
-	if (data.error) {
-		toast.error(data.error as string, {
-			duration: 5000
+	onMount(async () => {
+		bookings = await getBookings().then((bookings) => {
+			console.log(bookings);
+			bookingsStore.set(bookings);
+			return bookings;
 		});
+	});
+
+	async function getBookings() {
+		const res = await fetch('/api/bookings');
+		const data = await res.json();
+		return data;
 	}
 </script>
 
@@ -23,7 +31,7 @@
 <main class="container text-center">
 	<h1 class="text-4xl font-bold">Bokningar</h1>
 	<a href="/booking/new" class="btn btn-ghost">Skapa bokning</a>
-
+	{$bookingsStore}
 	{#if bookings?.length === 0}
 		<p>Inga bokningar</p>
 	{:else if bookings}

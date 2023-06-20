@@ -55,7 +55,7 @@ export const GET = (async (request) => {
 
 	await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 
-	const employees = await Employee.find({});
+	const employees = await Employee.find({}).lean();
 
 	await mongoose.disconnect();
 

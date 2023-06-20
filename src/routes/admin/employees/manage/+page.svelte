@@ -1,15 +1,25 @@
 <script lang="ts">
 	import type { IFilteredEmployee } from '$lib/types';
+	import { onMount } from 'svelte';
 	import { toast, Toaster } from 'svelte-french-toast';
+	import { page } from '$app/stores';
 
-	export let data: any;
+	async function getEmployee(id: string) {
+		return (await fetch(`/api/secure/employee?id=${id}`)).json();
+	}
+
+	let employee: IFilteredEmployee;
+
+	onMount(async () => {
+		const id = $page.url.searchParams.get('id');
+		employee = await getEmployee(id as string).then((employee) => {
+			console.log(employee.employee[0]);
+			return employee.employee[0];
+		});
+	});
 
 	let password = '';
 	let confirmPassword = '';
-
-	const employee = data.employee[0];
-
-	console.log(employee);
 
 	async function changePassword() {
 		if (password !== confirmPassword) {
@@ -43,10 +53,6 @@
 
 <Toaster />
 
-{#if employee === undefined}
-	<h1 class="font-bold text-4xl">Anställd hittades inte</h1>
-{/if}
-
 <div class="container mx-auto flex justify-center items-center flex-col">
 	{#if employee !== undefined}
 		<h1 class="text-4xl font-semibold">{employee.firstName} {employee.lastName}</h1>
@@ -70,13 +76,18 @@
 				</h3>
 
 				<label for="password" class="label">Nytt lösenord</label>
-				<input type="password" id="password" class="input input-bordered" bind:value={password} />
+				<input
+					type="password"
+					id="password"
+					class="input input-bordered w-full"
+					bind:value={password}
+				/>
 
 				<label for="confirmPassword" class="label">Bekräfta lösenord</label>
 				<input
 					type="password"
 					id="confirmPassword"
-					class="input input-bordered"
+					class="input input-bordered w-full"
 					bind:value={confirmPassword}
 				/>
 

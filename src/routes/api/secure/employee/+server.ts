@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import { validateAdmin } from '$lib/validateAccount';
-import { createEmployee } from '$lib/db';
+import { createEmployee, getEmployee } from '$lib/db';
 import bcrypt from 'bcrypt';
 
 export const POST = (async ({ request, cookies }) => {
@@ -33,6 +33,28 @@ export const POST = (async ({ request, cookies }) => {
 		await createEmployee(newEmployee);
 
 		return new Response(JSON.stringify({ message: 'Added employee' }));
+	} catch (e) {
+		throw error(500);
+	}
+}) satisfies RequestHandler;
+
+export const GET = (async ({ cookies, url }) => {
+	const validatedAdmin = await validateAdmin(cookies.get('token') as string);
+
+	if (validatedAdmin.error) {
+		throw error(401, 'Unauthorized');
+	}
+
+	const id = url.searchParams.get('id');
+
+	if (!id) {
+		throw error(400, 'Bad Request');
+	}
+
+	try {
+		const employee = await getEmployee(id);
+
+		return new Response(JSON.stringify({ employee }));
 	} catch (e) {
 		throw error(500);
 	}

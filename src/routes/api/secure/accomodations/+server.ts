@@ -10,6 +10,8 @@ export const POST = (async ({ request, cookies }) => {
 	const token = cookies.get('token');
 	const body = await request.json();
 
+	console.log(body);
+
 	const validatedEmployee = await validateEmployee(token as string);
 
 	if (validatedEmployee.error) {
@@ -21,22 +23,14 @@ export const POST = (async ({ request, cookies }) => {
 
 		const electricity = onOffToBoolean(body.electricity);
 
-		const prices = [
-			body.priceDay1,
-			body.priceDay2,
-			body.priceDay3,
-			body.priceDay4,
-			body.priceDay5,
-			body.priceDay6,
-			body.priceDay7
-		];
+		const prices = Object.values(body.prices);
 
 		const accomodation = new Accomodation({
 			_id: new mongoose.Types.ObjectId(),
 			slotName: body.slotName,
 			location: body.location,
 			type: 'Ställplats',
-			price: prices,
+			prices: prices,
 			description: body.description,
 			electricity: electricity
 		});
@@ -46,6 +40,28 @@ export const POST = (async ({ request, cookies }) => {
 		await mongoose.disconnect();
 
 		return new Response(JSON.stringify({ message: 'Added accomodation with id: ' + res._id }));
+	} catch (e) {
+		throw error(500);
+	}
+}) satisfies RequestHandler;
+
+export const GET = (async ({ cookies }) => {
+	const token = cookies.get('token');
+
+	const validatedEmployee = await validateEmployee(token as string);
+
+	if (validatedEmployee.error) {
+		throw error(validatedEmployee.status, validatedEmployee.error);
+	}
+
+	try {
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+
+		const accomodations = await Accomodation.find({}).lean();
+
+		await mongoose.disconnect();
+
+		return new Response(JSON.stringify({ accomodations }));
 	} catch (e) {
 		throw error(500);
 	}
