@@ -19,7 +19,7 @@
 			delete data[`priceDay${i}`];
 		}
 
-		const response = await fetch('/api/secure/stallplats', {
+		const response = await fetch('/api/secure/accomodations', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
