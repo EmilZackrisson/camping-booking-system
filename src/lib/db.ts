@@ -7,7 +7,7 @@ import type { IAccomodation, IEmployee, IBooking } from '$lib/types';
 
 async function getAccomodation(id: string) {
 	try {
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const accomodation: IAccomodation = await Accomodation.find({ _id: id }).lean();
 		await mongoose.disconnect();
 		return accomodation;
@@ -19,7 +19,7 @@ async function getAccomodation(id: string) {
 
 async function getAccomodations() {
 	try {
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const accomodations: IAccomodation[] = await Accomodation.find().lean();
 		await mongoose.disconnect();
 		return accomodations;
@@ -31,7 +31,7 @@ async function getAccomodations() {
 
 async function createAccomodation(accomodation: IAccomodation) {
 	try {
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const createdAccomodation = await Accomodation.create(accomodation);
 		await mongoose.disconnect();
 		return createdAccomodation;
@@ -43,7 +43,7 @@ async function createAccomodation(accomodation: IAccomodation) {
 
 async function getEmployee(id: string) {
 	try {
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const employee: IEmployee = await Employee.find({ _id: id }).lean();
 		await mongoose.disconnect();
 		return employee;
@@ -55,7 +55,7 @@ async function getEmployee(id: string) {
 
 async function getEmployees() {
 	try {
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const employees: IEmployee[] = await Employee.find().lean();
 		await mongoose.disconnect();
 		return employees.map((employee) => {
@@ -86,7 +86,7 @@ async function createEmployee(employee: {
 	notes: string;
 }) {
 	try {
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 
 		const createdEmployee = await Employee.create({
 			...employee,
@@ -102,7 +102,7 @@ async function createEmployee(employee: {
 
 async function getBookings() {
 	try {
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const bookings: IBooking[] = await Booking.find().lean();
 		await mongoose.disconnect();
 		return bookings;
