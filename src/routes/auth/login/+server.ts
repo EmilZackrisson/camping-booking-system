@@ -4,6 +4,7 @@ import Employee from '../../../models/Employee.js';
 import { env } from '$env/dynamic/private';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { IEmployee } from '$lib/types';
+import jwt from 'jsonwebtoken';
 
 export const POST = (async (request) => {
 	const form = await request.request.json();
@@ -37,21 +38,36 @@ export const POST = (async (request) => {
 	const expires = new Date();
 	expires.setDate(expires.getDate() + 7);
 
+	const jwtToken = jwt.sign(
+		{
+			id: employee._id,
+			email: employee.email
+		},
+		env.JWT_SECRET as string,
+		{
+			expiresIn: '7d'
+		}
+	);
+
 	const { firstName, lastName, role } = employee;
 
-	await employee.updateOne({
-		sessions: [...employee.sessions, { token: token, expires: expires }]
-	});
+	// await employee.updateOne({
+	// 	sessions: [...employee.sessions, jwtToken]
+	// });
+
+	employee.sessions.push(jwtToken);
+
+	await employee.save();
 
 	await mongoose.disconnect();
 
 	return new Response(
 		JSON.stringify({
-			token: token,
 			expires: expires,
 			firstName: firstName,
 			lastName: lastName,
-			role: role
+			role: role,
+			jwtToken: jwtToken
 		})
 	);
 }) satisfies RequestHandler;

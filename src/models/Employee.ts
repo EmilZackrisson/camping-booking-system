@@ -13,7 +13,7 @@ const EmployeeSchema = new mongoose.Schema({
 	},
 	passwordHash: String,
 	passwordSalt: String,
-	sessions: [{ token: String, expires: Date }]
+	sessions: [String]
 });
 
 export default mongoose.models.Employee || mongoose.model('Employee', EmployeeSchema);

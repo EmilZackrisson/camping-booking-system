@@ -81,7 +81,7 @@ export const POST = (async ({ request }) => {
 
 export const DELETE = (async ({ url, cookies }) => {
 	try {
-		const token = cookies.get('token');
+		const token = cookies.get('jwt');
 
 		const validatedAdmin = await validateEmployee(token as string);
 

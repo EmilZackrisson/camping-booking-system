@@ -7,7 +7,7 @@ import { env } from '$env/dynamic/private';
 import { onOffToBoolean } from '$lib/utils';
 
 export const POST = (async ({ request, cookies }) => {
-	const token = cookies.get('token');
+	const token = Cookies.get('jwt');
 	const body = await request.json();
 
 	console.log(body);
@@ -46,7 +46,7 @@ export const POST = (async ({ request, cookies }) => {
 }) satisfies RequestHandler;
 
 export const GET = (async ({ cookies }) => {
-	const token = cookies.get('token');
+	const token = Cookies.get('jwt');
 
 	const validatedEmployee = await validateEmployee(token as string);
 

@@ -5,17 +5,16 @@ import { env } from '$env/dynamic/private';
 import { validateAdmin } from '$lib/validateAccount';
 import type { RequestHandler } from './$types';
 import type { IEmployee } from '$lib/types';
+import { json } from '@sveltejs/kit';
 
 export const POST = (async (request) => {
 	const body = await request.request.json();
 	console.log(body);
 
-	const validatedAdmin = await validateAdmin(request.cookies.get('token') as string);
+	const validatedAdmin = await validateAdmin(request.cookies.get('jwt') as string);
 
 	if (validatedAdmin.error) {
-		return new Response(JSON.stringify({ error: validatedAdmin.error }), {
-			status: validatedAdmin.status
-		});
+		return json({ error: validatedAdmin.error }, { status: 401 });
 	}
 
 	await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
@@ -41,37 +40,44 @@ export const POST = (async (request) => {
 
 	await mongoose.disconnect();
 
-	return new Response(JSON.stringify({ employee }));
+	return json({ message: 'Employee created' }, { status: 201 });
 }) satisfies RequestHandler;
 
 export const GET = (async (request) => {
-	const validatedAdmin = await validateAdmin(request.cookies.get('token') as string);
+	try {
+		const validatedAdmin = await validateAdmin(request.cookies.get('jwt') as string);
 
-	if (validatedAdmin.error) {
-		return new Response(JSON.stringify({ error: validatedAdmin.error }), {
-			status: validatedAdmin.status
+		console.log(validatedAdmin);
+
+		if (validatedAdmin.error) {
+			return json({ error: validatedAdmin.error }, { status: 401 });
+		}
+
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
+
+		const employees = await Employee.find({}).lean();
+
+		await mongoose.disconnect();
+
+		const filteredEmployees = employees.map((employee) => {
+			return {
+				_id: employee._id,
+				firstName: employee.firstName,
+				lastName: employee.lastName,
+				email: employee.email,
+				phone: employee.phone,
+				role: employee.role,
+				notes: employee.notes
+			};
 		});
+
+		console.log(filteredEmployees);
+
+		return new Response(JSON.stringify({ employees: filteredEmployees }));
+	} catch (error) {
+		console.log('Error while getting employees: ', error);
+		return json({ error: error.message }, { status: 500 });
 	}
-
-	await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
-
-	const employees = await Employee.find({}).lean();
-
-	await mongoose.disconnect();
-
-	const filteredEmployees = employees.map((employee) => {
-		return {
-			_id: employee._id,
-			firstName: employee.firstName,
-			lastName: employee.lastName,
-			email: employee.email,
-			phone: employee.phone,
-			role: employee.role,
-			notes: employee.notes
-		};
-	});
-
-	return new Response(JSON.stringify({ employees: filteredEmployees }));
 }) satisfies RequestHandler;
 
 export const PUT = (async (request) => {
@@ -84,12 +90,10 @@ export const PUT = (async (request) => {
 	const password = body.password;
 	console.log('password', password);
 
-	const validatedAdmin = await validateAdmin(request.cookies.get('token') as string);
+	const validatedAdmin = await validateAdmin(request.cookies.get('jwt') as string);
 
 	if (validatedAdmin.error) {
-		return new Response(JSON.stringify({ error: validatedAdmin.error }), {
-			status: validatedAdmin.status
-		});
+		return json({ error: validatedAdmin.error }, { status: 401 });
 	}
 
 	if (typeOfChange === 'password') {
@@ -102,7 +106,7 @@ export const PUT = (async (request) => {
 			const employee = await Employee.findById(userId);
 
 			if (!employee) {
-				return new Response(JSON.stringify({ error: 'Employee not found' }), { status: 404 });
+				return json({ error: 'Employee not found' }, { status: 404 });
 			}
 
 			employee.passwordHash = passwordHash;
@@ -117,9 +121,9 @@ export const PUT = (async (request) => {
 		} catch (error) {
 			console.log('Error while changing password: ', error);
 			// @ts-expect-error - error.message is a string
-			return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+			return json({ error: error.message }, { status: 500 });
 		}
 	} else {
-		return new Response(JSON.stringify({ error: 'Invalid type of change' }), { status: 400 });
+		return json({ error: 'Invalid type of change' }, { status: 400 });
 	}
 }) satisfies RequestHandler;

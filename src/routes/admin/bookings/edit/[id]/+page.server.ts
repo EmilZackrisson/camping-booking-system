@@ -6,7 +6,7 @@ import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params, cookies }) => {
 	try {
-		const token = cookies.get('token');
+		const token = Cookies.get('jwt');
 
 		const validatedEmployee = await validateEmployee(token as string);
 
