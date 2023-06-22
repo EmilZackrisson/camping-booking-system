@@ -4,7 +4,7 @@ import Employee from '../models/Employee';
 import jwt from 'jsonwebtoken';
 
 async function validateAdmin(token: string) {
-	jwt.verify(token, env.JWT_SECRET as string, async function (err, decoded) {
+	jwt.verify(token, env.JWT_SECRET as string, async function (err) {
 		if (err) {
 			console.log(err);
 			return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
@@ -21,13 +21,14 @@ async function validateAdmin(token: string) {
 
 		console.log(employeeFromDb);
 
-		await mongoose.disconnect();
-
 		if (!employeeFromDb) {
 			return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
 		}
 
 		console.log(employeeFromDb.email, 'authorized');
+
+		await mongoose.disconnect();
+
 		return { error: null, status: null, body: { role: 'Admin' } };
 	});
 

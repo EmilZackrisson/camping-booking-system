@@ -6,6 +6,7 @@ import { validateAdmin } from '$lib/validateAccount';
 import type { RequestHandler } from './$types';
 import type { IEmployee } from '$lib/types';
 import { json } from '@sveltejs/kit';
+import { getEmployees } from '$lib/db.js';
 
 export const POST = (async (request) => {
 	const body = await request.request.json();
@@ -53,29 +54,11 @@ export const GET = (async (request) => {
 			return json({ error: validatedAdmin.error }, { status: 401 });
 		}
 
-		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
+		const employees = await getEmployees();
 
-		const employees = await Employee.find({}).lean();
-
-		await mongoose.disconnect();
-
-		const filteredEmployees = employees.map((employee) => {
-			return {
-				_id: employee._id,
-				firstName: employee.firstName,
-				lastName: employee.lastName,
-				email: employee.email,
-				phone: employee.phone,
-				role: employee.role,
-				notes: employee.notes
-			};
-		});
-
-		console.log(filteredEmployees);
-
-		return new Response(JSON.stringify({ employees: filteredEmployees }));
-	} catch (error) {
-		console.log('Error while getting employees: ', error);
+		return new Response(JSON.stringify({ employees: employees }));
+	} catch (error: any) {
+		console.log('🚀 ~ file: +server.ts:78 ~ GET ~ error:', error);
 		return json({ error: error.message }, { status: 500 });
 	}
 }) satisfies RequestHandler;
