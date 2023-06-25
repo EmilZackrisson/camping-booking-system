@@ -28,15 +28,13 @@ async function validateAdmin(token: string) {
 
 			console.log(employeeFromDb.email, 'authorized');
 
-			await mongoose.disconnect();
-
 			return { error: null, status: null, body: { role: 'Admin' } };
 		});
 
 		return { error: null, status: null, body: { role: 'Admin' } };
 	} catch (error) {
 		console.log('Error validating admin', error);
-		await mongoose.disconnect();
+
 		return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
 	}
 }
@@ -55,8 +53,6 @@ async function validateEmployee(token: string) {
 			}
 		}
 	});
-
-	await mongoose.disconnect();
 
 	if (!employeeFromDb) {
 		return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };

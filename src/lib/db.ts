@@ -9,7 +9,7 @@ async function getAccomodation(id: string) {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const accomodation: IAccomodation = await Accomodation.find({ _id: id }).lean();
-		await mongoose.disconnect();
+
 		return accomodation;
 	} catch (e) {
 		console.log('GET ACCOMMODATION ERROR', e);
@@ -21,7 +21,7 @@ async function getAccomodations() {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const accomodations: IAccomodation[] = await Accomodation.find().lean();
-		await mongoose.disconnect();
+
 		return accomodations;
 	} catch (e) {
 		console.log('GET ACCOMMODATION ERROR', e);
@@ -33,7 +33,7 @@ async function createAccomodation(accomodation: IAccomodation) {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const createdAccomodation = await Accomodation.create(accomodation);
-		await mongoose.disconnect();
+
 		return createdAccomodation;
 	} catch (e) {
 		console.log('CREATE ACCOMMODATION ERROR', e);
@@ -45,7 +45,7 @@ async function getEmployee(id: string) {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const employee: IEmployee = await Employee.find({ _id: id }).lean();
-		await mongoose.disconnect();
+
 		return employee;
 	} catch (e) {
 		console.log('GET EMPLOYEE ERROR', e);
@@ -57,7 +57,7 @@ async function getEmployees() {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const employees: IEmployee[] = await Employee.find().lean();
-		await mongoose.disconnect();
+
 		return employees;
 	} catch (e) {
 		console.log('GET EMPLOYEES ERROR', e);
@@ -81,7 +81,7 @@ async function createEmployee(employee: {
 			...employee,
 			_id: new mongoose.Types.ObjectId()
 		});
-		await mongoose.disconnect();
+
 		return createdEmployee;
 	} catch (e) {
 		console.log('CREATE EMPLOYEE ERROR', e);
@@ -93,7 +93,7 @@ async function getBookings() {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const bookings: IBooking[] = await Booking.find().lean();
-		await mongoose.disconnect();
+
 		return bookings;
 	} catch (e) {
 		console.log('GET BOOKINGS ERROR', e);

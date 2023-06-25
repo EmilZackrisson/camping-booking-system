@@ -26,8 +26,6 @@ export const handle = (async ({ event, resolve }) => {
 
 			// console.log(employeeFromDb);
 
-			await mongoose.disconnect();
-
 			if (!employeeFromDb) {
 				console.log('(hooks.server.ts) Redirecting to login', ' no employee found');
 				return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });

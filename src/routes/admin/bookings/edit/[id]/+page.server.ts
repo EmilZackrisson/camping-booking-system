@@ -22,8 +22,6 @@ export const load = (async ({ params, cookies }) => {
 
 		const booking = await Booking.findById(id);
 
-		await mongoose.disconnect();
-
 		if (!booking) {
 			return new Response(JSON.stringify({ error: 'Booking not found', status: 404 }));
 		}

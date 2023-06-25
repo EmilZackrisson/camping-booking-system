@@ -59,8 +59,6 @@ export const POST = (async (request) => {
 
 	await employee.save();
 
-	await mongoose.disconnect();
-
 	return new Response(
 		JSON.stringify({
 			expires: expires,

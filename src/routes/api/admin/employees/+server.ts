@@ -39,8 +39,6 @@ export const POST = (async (request) => {
 	const res = await employee.save();
 	console.log('Response from mongoose', res);
 
-	await mongoose.disconnect();
-
 	return json({ message: 'Employee created' }, { status: 201 });
 }) satisfies RequestHandler;
 
@@ -98,8 +96,6 @@ export const PUT = (async (request) => {
 			employee.passwordSalt = salt;
 
 			await employee.save();
-
-			await mongoose.disconnect();
 
 			console.log(`${employee.firstName} ${employee.lastName}s password changed`);
 			return new Response(JSON.stringify({ message: 'Password Changed' }));

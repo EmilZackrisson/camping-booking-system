@@ -37,8 +37,6 @@ export const POST: RequestHandler = async (request) => {
 
 		await createEmployee(employee);
 
-		await mongoose.disconnect();
-
 		return new Response(JSON.stringify('Admin account created!'));
 	} catch (error) {
 		console.error(error);

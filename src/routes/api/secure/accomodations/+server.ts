@@ -7,7 +7,7 @@ import { env } from '$env/dynamic/private';
 import { onOffToBoolean } from '$lib/utils';
 
 export const POST = (async ({ request, cookies }) => {
-	const token = Cookies.get('jwt');
+	const token = cookies.get('jwt');
 	const body = await request.json();
 
 	console.log(body);
@@ -37,8 +37,6 @@ export const POST = (async ({ request, cookies }) => {
 
 		const res = await accomodation.save();
 
-		await mongoose.disconnect();
-
 		return new Response(JSON.stringify({ message: 'Added accomodation with id: ' + res._id }));
 	} catch (e) {
 		throw error(500);
@@ -46,7 +44,7 @@ export const POST = (async ({ request, cookies }) => {
 }) satisfies RequestHandler;
 
 export const GET = (async ({ cookies }) => {
-	const token = Cookies.get('jwt');
+	const token = cookies.get('jwt');
 
 	const validatedEmployee = await validateEmployee(token as string);
 
@@ -58,8 +56,6 @@ export const GET = (async ({ cookies }) => {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const accomodations = await Accomodation.find({}).lean();
-
-		await mongoose.disconnect();
 
 		return new Response(JSON.stringify({ accomodations }));
 	} catch (e) {
