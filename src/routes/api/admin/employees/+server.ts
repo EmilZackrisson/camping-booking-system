@@ -48,7 +48,7 @@ export const GET = (async (request) => {
 	try {
 		const validatedAdmin = await validateAdmin(request.cookies.get('jwt') as string);
 
-		console.log(validatedAdmin);
+		console.log('validatedAdmin', validatedAdmin);
 
 		if (validatedAdmin.error) {
 			return json({ error: validatedAdmin.error }, { status: 401 });
@@ -56,7 +56,9 @@ export const GET = (async (request) => {
 
 		const employees = await getEmployees();
 
-		return new Response(JSON.stringify({ employees: employees }));
+		console.log('employees', employees);
+
+		return json({ employees }, { status: 200 });
 	} catch (error: any) {
 		console.log('🚀 ~ file: +server.ts:78 ~ GET ~ error:', error);
 		return json({ error: error.message }, { status: 500 });

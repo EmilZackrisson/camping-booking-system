@@ -4,35 +4,41 @@ import Employee from '../models/Employee';
 import jwt from 'jsonwebtoken';
 
 async function validateAdmin(token: string) {
-	jwt.verify(token, env.JWT_SECRET as string, async function (err) {
-		if (err) {
-			console.log(err);
-			return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
-		}
+	try {
+		jwt.verify(token, env.JWT_SECRET as string, async function (err) {
+			if (err) {
+				console.log(err);
+				return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
+			}
 
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+			await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const employeeFromDb = await Employee.findOne({ sessions: token });
+			const employeeFromDb = await Employee.findOne({ sessions: token });
 
-		if (employeeFromDb?.role !== 'Admin' || !employeeFromDb) {
-			console.log('Unauthorized');
-			return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
-		}
+			if (employeeFromDb?.role !== 'Admin' || !employeeFromDb) {
+				console.log('Unauthorized');
+				return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
+			}
 
-		console.log(employeeFromDb);
+			console.log(employeeFromDb);
 
-		if (!employeeFromDb) {
-			return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
-		}
+			if (!employeeFromDb) {
+				return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
+			}
 
-		console.log(employeeFromDb.email, 'authorized');
+			console.log(employeeFromDb.email, 'authorized');
 
-		await mongoose.disconnect();
+			await mongoose.disconnect();
+
+			return { error: null, status: null, body: { role: 'Admin' } };
+		});
 
 		return { error: null, status: null, body: { role: 'Admin' } };
-	});
-
-	return { error: null, status: null, body: { role: 'Admin' } };
+	} catch (error) {
+		console.log('Error validating admin', error);
+		await mongoose.disconnect();
+		return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
+	}
 }
 
 async function validateEmployee(token: string) {

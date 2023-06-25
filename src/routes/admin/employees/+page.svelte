@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { error } from '@sveltejs/kit';
 	import type { IFilteredEmployee } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { toast, Toaster } from 'svelte-french-toast';
@@ -8,7 +7,7 @@
 
 	onMount(async () => {
 		employees = await getEmployees().then((employees) => {
-			console.log(employees.employees);
+			console.log('Employees +page.svelte: ', employees.employees);
 			return employees.employees;
 		});
 	});

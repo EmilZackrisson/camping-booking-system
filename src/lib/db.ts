@@ -58,20 +58,9 @@ async function getEmployees() {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const employees: IEmployee[] = await Employee.find().lean();
 		await mongoose.disconnect();
-		return employees.map((employee) => {
-			return {
-				_id: employee._id,
-				firstName: employee.firstName,
-				lastName: employee.lastName,
-				email: employee.email,
-				phone: employee.phone,
-				role: employee.role,
-				notes: employee.notes
-			} as IEmployee;
-		});
+		return employees;
 	} catch (e) {
 		console.log('GET EMPLOYEES ERROR', e);
-		throw e;
 	}
 }
 

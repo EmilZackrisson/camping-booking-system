@@ -24,7 +24,7 @@ export const handle = (async ({ event, resolve }) => {
 
 			const employeeFromDb = await Employee.findOne({ sessions: cookie });
 
-			console.log(employeeFromDb);
+			// console.log(employeeFromDb);
 
 			await mongoose.disconnect();
 

@@ -31,7 +31,6 @@
 <main class="container text-center">
 	<h1 class="text-4xl font-bold">Bokningar</h1>
 	<a href="/booking/new" class="btn btn-ghost">Skapa bokning</a>
-	{$bookingsStore}
 	{#if bookings?.length === 0}
 		<p>Inga bokningar</p>
 	{:else if bookings}
