@@ -1,10 +1,17 @@
+import { sequence } from '@sveltejs/kit/hooks';
+import * as Sentry from '@sentry/sveltekit';
 import mongoose from 'mongoose';
 import { env } from '$env/dynamic/private';
 import Employee from './models/Employee';
 import type { Handle } from '@sveltejs/kit';
 import jwt from 'jsonwebtoken';
 
-export const handle = (async ({ event, resolve }) => {
+Sentry.init({
+	dsn: 'https://43162651ea9d488eaed5095a43f9943f@o4504838824198144.ingest.sentry.io/4505421714882560',
+	tracesSampleRate: 1
+});
+
+export const handle = sequence(Sentry.sentryHandle(), (async ({ event, resolve }) => {
 	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/api/secure')) {
 		const cookie = event.cookies.get('jwt')?.trim();
 
@@ -36,4 +43,5 @@ export const handle = (async ({ event, resolve }) => {
 	}
 
 	return resolve(event);
-}) satisfies Handle;
+}) satisfies Handle);
+export const handleError = Sentry.handleErrorWithSentry();

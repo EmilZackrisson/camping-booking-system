@@ -4,7 +4,6 @@ import { validateEmployee } from '$lib/validateAccount';
 import Accomodation from '../../../../models/Accomodation';
 import mongoose from 'mongoose';
 import { env } from '$env/dynamic/private';
-import { onOffToBoolean } from '$lib/utils';
 
 export const POST = (async ({ request, cookies }) => {
 	const token = cookies.get('jwt');
@@ -21,8 +20,6 @@ export const POST = (async ({ request, cookies }) => {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const electricity = onOffToBoolean(body.electricity);
-
 		const prices = Object.values(body.prices);
 
 		const accomodation = new Accomodation({
@@ -32,7 +29,7 @@ export const POST = (async ({ request, cookies }) => {
 			type: 'Ställplats',
 			prices: prices,
 			description: body.description,
-			electricity: electricity
+			electricity: body.electricity
 		});
 
 		const res = await accomodation.save();

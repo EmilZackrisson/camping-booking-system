@@ -19,15 +19,25 @@
 			delete data[`priceDay${i}`];
 		}
 
+		let accomodation: any = {
+			...data,
+			prices
+		};
+
+		if (accomodation.electricity === 'on') {
+			accomodation.electricity = true;
+		} else {
+			accomodation.electricity = false;
+		}
+
+		console.log(accomodation);
+
 		const response = await fetch('/api/secure/accomodations', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({
-				...data,
-				prices
-			})
+			body: JSON.stringify(accomodation)
 		});
 
 		if (response.ok) {
