@@ -31,7 +31,7 @@ interface IEmployee extends Document {
 	notes?: string;
 	passwordHash: string;
 	passwordSalt: string;
-	sessions: [{ token: string; expires: Date }];
+	sessions: [string];
 }
 
 interface IFilteredEmployee extends Document {

@@ -2,42 +2,37 @@ import mongoose from 'mongoose';
 import { env } from '$env/dynamic/private';
 import Employee from './models/Employee';
 import type { Handle } from '@sveltejs/kit';
+import jwt from 'jsonwebtoken';
 
 export const handle = (async ({ event, resolve }) => {
 	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/api/secure')) {
-		const cookie = event.cookies.get('token');
+		const cookie = event.cookies.get('jwt')?.trim();
+
+		console.log('Cookie: ', cookie);
 
 		if (!cookie) {
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
-		const expires = event.cookies.get('expires');
+		jwt.verify(cookie, env.JWT_SECRET as string, async function (err, decoded) {
+			if (err) {
+				console.log(err);
+				return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
+			}
 
-		if (!cookie || !expires) {
-			console.log('Redirecting to login', cookie, expires);
-			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
-		}
+			await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-		const now = new Date();
-		const expiresDate = new Date(expires);
+			const employeeFromDb = await Employee.findOne({ sessions: cookie });
 
-		if (now > expiresDate) {
-			console.log('Redirecting to login', now, expiresDate);
-			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
-		}
+			// console.log(employeeFromDb);
 
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
+			if (!employeeFromDb) {
+				console.log('(hooks.server.ts) Redirecting to login', ' no employee found');
+				return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
+			}
 
-		const employeeFromDb = await Employee.findOne({ sessions: { $elemMatch: { token: cookie } } });
-
-		await mongoose.disconnect();
-
-		if (!employeeFromDb) {
-			console.log('Redirecting to login', ' no employee found');
-			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
-		}
-
-		return resolve(event);
+			return resolve(event);
+		});
 	}
 
 	return resolve(event);
