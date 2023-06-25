@@ -17,12 +17,11 @@
 
 		const result = await response.json();
 
-		if (result.token !== undefined) {
+		if (result.jwtToken !== undefined) {
 			// window.location.href = "/booking";
 			console.log(result);
 
-			Cookies.set('token', result.token, { expires: 7 });
-			Cookies.set('expires', result.expires, { expires: 7 });
+			Cookies.set('jwt', result.jwtToken, { expires: 7 });
 			Cookies.set('role', result.role, { expires: 7 });
 
 			window.location.href = '/admin';

@@ -5,7 +5,7 @@ import { createEmployee, getEmployee } from '$lib/db';
 import bcrypt from 'bcrypt';
 
 export const POST = (async ({ request, cookies }) => {
-	const validatedAdmin = await validateAdmin(cookies.get('token') as string);
+	const validatedAdmin = await validateAdmin(cookies.get('jwt') as string);
 
 	if (validatedAdmin.error) {
 		throw error(401, 'Unauthorized');
@@ -39,7 +39,7 @@ export const POST = (async ({ request, cookies }) => {
 }) satisfies RequestHandler;
 
 export const GET = (async ({ cookies, url }) => {
-	const validatedAdmin = await validateAdmin(cookies.get('token') as string);
+	const validatedAdmin = await validateAdmin(cookies.get('jwt') as string);
 
 	if (validatedAdmin.error) {
 		throw error(401, 'Unauthorized');

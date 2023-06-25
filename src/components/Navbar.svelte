@@ -8,7 +8,7 @@
 	}
 
 	let role = Cookies.get('role');
-	let token = Cookies.get('token');
+	let token = Cookies.get('jwt');
 </script>
 
 <nav class="navbar bg-base-100">

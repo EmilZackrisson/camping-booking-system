@@ -3,7 +3,7 @@ import { getBookings } from '$lib/db';
 import { validateEmployee } from '$lib/validateAccount';
 
 export const GET = (async ({ cookies }) => {
-	const token = cookies.get('token');
+	const token = cookies.get('jwt');
 
 	const validatedEmployee = await validateEmployee(token as string);
 

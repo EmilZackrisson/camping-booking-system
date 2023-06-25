@@ -6,7 +6,7 @@ import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params, cookies }) => {
 	try {
-		const token = cookies.get('token');
+		const token = Cookies.get('jwt');
 
 		const validatedEmployee = await validateEmployee(token as string);
 
@@ -21,8 +21,6 @@ export const load = (async ({ params, cookies }) => {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
 		const booking = await Booking.findById(id);
-
-		await mongoose.disconnect();
 
 		if (!booking) {
 			return new Response(JSON.stringify({ error: 'Booking not found', status: 404 }));
