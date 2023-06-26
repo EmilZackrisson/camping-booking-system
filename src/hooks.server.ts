@@ -8,7 +8,8 @@ import jwt from 'jsonwebtoken';
 
 Sentry.init({
 	dsn: 'https://43162651ea9d488eaed5095a43f9943f@o4504838824198144.ingest.sentry.io/4505421714882560',
-	tracesSampleRate: 1
+	tracesSampleRate: 1,
+	environment: env.NODE_ENV
 });
 
 export const handle = sequence(Sentry.sentryHandle(), (async ({ event, resolve }) => {
