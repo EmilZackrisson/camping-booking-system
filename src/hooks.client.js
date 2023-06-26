@@ -14,7 +14,9 @@ Sentry.init({
 	replaysOnErrorSampleRate: 1.0,
 
 	// If you don't want to use Session Replay, just remove the line below:
-	integrations: [new Replay()]
+	integrations: [new Replay()],
+
+	environment: import.meta.env.MODE,
 });
 
 // If you have a custom error handler, pass it to `handleErrorWithSentry`
