@@ -213,29 +213,3 @@
 		<button type="submit" class="btn mb-5">Skicka</button>
 	</form>
 </section>
-
-<style>
-	input[type='text'],
-	input[type='email'],
-	input[type='tel'],
-	input[type='number'],
-	input[type='date'] {
-		@apply input input-bordered w-full;
-	}
-
-	input[type='checkbox'] {
-		@apply checkbox;
-	}
-
-	textarea {
-		@apply textarea textarea-bordered w-full;
-	}
-
-	label {
-		@apply label-text;
-	}
-
-	.checkbox-row {
-		@apply flex items-center gap-2 mb-2;
-	}
-</style>

@@ -15,9 +15,3 @@
 		{/if}
 	</div>
 </section>
-
-<style>
-	a {
-		@apply text-blue-500 bg-base-200 p-5 rounded-md;
-	}
-</style>

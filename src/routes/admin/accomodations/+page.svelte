@@ -25,7 +25,7 @@
 <main class="container flex flex-col items-center">
 	<h1 class="font-semibold text-4xl">Boenden</h1>
 	<!--suppress XmlInvalidId -->
-	<label for="openAddModal" class="btn">Lägg till Ställplats</label>
+	<label for="openAddModal" class="btn variant-ghost">Lägg till Ställplats</label>
 	<div class="flex flex-wrap w-full gap-5 mt-3">
 		{#if accomodations}
 			{#each accomodations as accomodation}

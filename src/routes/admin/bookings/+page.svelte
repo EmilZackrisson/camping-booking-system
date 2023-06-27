@@ -11,10 +11,13 @@
 		bookings = value;
 	});
 
+	let loading = true;
+
 	onMount(async () => {
 		bookings = await getBookings().then((bookings) => {
 			console.log(bookings);
 			bookingsStore.set(bookings);
+			loading = false;
 			return bookings;
 		});
 	});
@@ -28,10 +31,13 @@
 
 <Toaster />
 
-<main class="container text-center">
+<main class="container text-center m-auto">
 	<h1 class="text-4xl font-bold">Bokningar</h1>
-	<a href="/booking/new" class="btn btn-ghost">Skapa bokning</a>
-	{#if bookings?.length === 0}
+	<a href="/booking/new" class="btn variant-ghost mt-2">Skapa bokning</a>
+	{#if loading}
+		<p>Laddar...</p>
+		<div class="placeholder-circle animate-pulse w-20" />
+	{:else if bookings?.length === 0}
 		<p>Inga bokningar</p>
 	{:else if bookings}
 		<section class="grid grid-cols-1 sm:grid-cols-3 gap-5">

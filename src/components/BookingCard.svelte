@@ -1,10 +1,21 @@
 <script lang="ts">
 	import type { IBooking } from '$lib/types';
+	import {
+		Modal,
+		modalStore,
+		type ModalComponent,
+		type ModalSettings
+	} from '@skeletonlabs/skeleton';
 
 	export let data: IBooking;
 	import { toast, Toaster } from 'svelte-french-toast';
 
-	async function deleteBooking() {
+	async function deleteBooking(userResponse: boolean) {
+		if (!userResponse) {
+			modalStore.close();
+			return;
+		}
+
 		const res = await fetch(`/api/booking?id=${data._id}`, {
 			method: 'DELETE'
 		});
@@ -18,9 +29,22 @@
 			});
 		}
 	}
+
+	const modal: ModalSettings = {
+		type: 'confirm',
+		// Data
+		title: 'Är du säker?',
+		body: 'Är du säker att du vill ta bort bokningen?',
+		buttonTextCancel: 'Avbryt',
+		buttonTextConfirm: 'Ta bort',
+
+		// TRUE if confirm pressed, FALSE if cancel pressed
+		response: (r: boolean) => deleteBooking(r)
+	};
 </script>
 
 <Toaster />
+<Modal />
 
 <section class="p-3 bg-base-200 rounded-lg">
 	<div>
@@ -37,10 +61,13 @@
 		<p>Bokningsnummer: {data._id}</p>
 	</div>
 	<a href="/admin/bookings/edit/{data._id}" class="btn hover:btn-primary btn-outline">Ändra</a>
-	<label for="deleteModal" class="btn hover:btn-error btn-outline">Ta bort</label>
+	<!-- <label for="deleteModal" class="btn hover:btn-error btn-outline">Ta bort</label> -->
+	<button class="btn hover:btn-error btn-outline" on:click={() => modalStore.trigger(modal)}
+		>Ta bort</button
+	>
 </section>
 
-<input type="checkbox" id="deleteModal" class="modal-toggle" />
+<!-- <input type="checkbox" id="deleteModal" class="modal-toggle" />
 <div class="modal modal-bottom sm:modal-middle">
 	<div class="modal-box">
 		<h3 class="font-bold text-lg">Är du säker att du vill ta bort bokningen?</h3>
@@ -50,4 +77,4 @@
 			<button class="btn btn-error" on:click={deleteBooking}>Ta bort</button>
 		</div>
 	</div>
-</div>
+</div> -->

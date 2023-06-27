@@ -71,17 +71,3 @@
 		<button type="submit" class="btn btn-primary">Skapa konto för anställd</button>
 	</form>
 </section>
-
-<style lang="postcss">
-	form {
-		@apply w-full max-w-lg;
-	}
-
-	input {
-		@apply input input-bordered w-full;
-	}
-
-	select {
-		@apply select select-bordered w-full;
-	}
-</style>

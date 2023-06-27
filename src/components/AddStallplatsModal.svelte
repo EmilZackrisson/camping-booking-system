@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	let prices = {
 		priceDay1: 0,
 		priceDay2: 0,
@@ -9,7 +10,11 @@
 		priceDay7: 0
 	};
 
+	let wait = false;
+
 	async function add(e: Event) {
+		wait = true;
+
 		const form = e.target as HTMLFormElement;
 		const formData = new FormData(form);
 		const data = Object.fromEntries(formData.entries());
@@ -47,6 +52,7 @@
 			window.location.reload();
 		}
 
+		wait = false;
 		return false;
 	}
 </script>
@@ -89,7 +95,7 @@
 			</div>
 			<div class="modal-action">
 				<label for="openAddModal" class="btn">Stäng</label>
-				<button class="btn btn-primary" type="submit">Lägg till</button>
+				<button class="btn btn-primary" disabled={wait} type="submit">Lägg till</button>
 			</div>
 		</form>
 	</div>
