@@ -4,4 +4,8 @@ function onOffToBoolean(onOff: string) {
 	return onOff === 'on';
 }
 
-export { onOffToBoolean };
+const serializeNonPOJOs = (value: object | null) => {
+	return structuredClone(value);
+};
+
+export { onOffToBoolean, serializeNonPOJOs };

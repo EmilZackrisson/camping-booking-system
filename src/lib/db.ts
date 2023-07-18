@@ -49,7 +49,6 @@ async function getEmployee(id: string) {
 		return employee;
 	} catch (e) {
 		console.log('GET EMPLOYEE ERROR', e);
-		throw e;
 	}
 }
 

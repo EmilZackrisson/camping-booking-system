@@ -1,14 +1,27 @@
 <script lang="ts">
 	import Cookies from 'js-cookie';
+	import { onMount } from 'svelte';
 
-	function logout() {
-		Cookies.remove('token');
-		Cookies.remove('expires');
+	async function logout() {
+		Cookies.remove('role');
+		Cookies.remove('jwt');
+
+		await fetch('/auth/logout', {
+			method: 'POST'
+		});
+
 		window.location.href = '/';
 	}
 
-	let role = Cookies.get('role');
-	let token = Cookies.get('jwt');
+	let role: string;
+	let jwt: string;
+
+	onMount(() => {
+		role = Cookies.get('role') ?? '';
+		jwt = Cookies.get('jwt') ?? '';
+
+		console.log(role, jwt);
+	});
 </script>
 
 <nav class="navbar bg-base-100">
@@ -46,7 +59,7 @@
 					</details>
 				</li>
 				<li><a href="/booking/new">Skapa bokning</a></li>
-				{#if token === undefined}
+				{#if jwt === undefined}
 					<li><a href="/auth/login">Logga in</a></li>
 				{:else}
 					<li><button on:click={logout} class="hover:btn-error">Logga ut</button></li>
@@ -80,7 +93,7 @@
 				</details>
 			</li>
 			<li><a href="/booking/new">Skapa bokning</a></li>
-			{#if token === undefined}
+			{#if jwt === undefined}
 				<li><a href="/auth/login">Logga in</a></li>
 			{:else}
 				<li><button on:click={logout} class="hover:btn-error">Logga ut</button></li>
