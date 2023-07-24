@@ -41,7 +41,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sentry/sveltekit": "^7.56.0",
-		"bcrypt": "^5.0.1",
+		"bcrypt": "^5.1.0",
 		"daisyui": "^3.0.3",
 		"js-cookie": "^3.0.5",
 		"jsonwebtoken": "^9.0.0",
