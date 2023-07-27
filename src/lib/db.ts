@@ -10,6 +10,8 @@ async function getAccomodation(id: string) {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const accomodation: IAccomodation = await Accomodation.find({ _id: id }).lean();
 
+		accomodation._id = accomodation._id.toString();
+
 		return accomodation;
 	} catch (e) {
 		console.log('GET ACCOMMODATION ERROR', e);
@@ -22,6 +24,10 @@ async function getAccomodations() {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const accomodations: IAccomodation[] = await Accomodation.find().lean();
 
+		accomodations.map((accomodation) => {
+			accomodation._id = accomodation._id.toString();
+		});
+
 		return accomodations;
 	} catch (e) {
 		console.log('GET ACCOMMODATION ERROR', e);
@@ -32,7 +38,9 @@ async function getAccomodations() {
 async function createAccomodation(accomodation: IAccomodation) {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
-		const createdAccomodation = await Accomodation.create(accomodation);
+		const createdAccomodation: IAccomodation = await Accomodation.create(accomodation);
+
+		createdAccomodation._id = createdAccomodation._id.toString();
 
 		return createdAccomodation;
 	} catch (e) {
@@ -46,6 +54,8 @@ async function getEmployee(id: string) {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const employee: IEmployee = await Employee.find({ _id: id }).lean();
 
+		employee._id = employee._id.toString();
+
 		return employee;
 	} catch (e) {
 		console.log('GET EMPLOYEE ERROR', e);
@@ -57,6 +67,9 @@ async function getEmployees() {
 	try {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const employees: IEmployee[] = await Employee.find().lean();
+		employees.map((employee) => {
+			employee._id = employee._id.toString();
+		});
 
 		return employees;
 	} catch (e) {
@@ -82,6 +95,8 @@ async function createEmployee(employee: {
 			_id: new mongoose.Types.ObjectId()
 		});
 
+		createdEmployee._id = createdEmployee._id.toString();
+
 		return createdEmployee;
 	} catch (e) {
 		console.log('CREATE EMPLOYEE ERROR', e);
@@ -94,10 +109,29 @@ async function getBookings() {
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
 		const bookings: IBooking[] = await Booking.find().lean();
 
+		bookings.map((booking) => {
+			booking._id = booking._id.toString();
+		});
+
 		return bookings;
 	} catch (e) {
 		console.log('GET BOOKINGS ERROR', e);
 		throw e;
+	}
+}
+
+async function getBooking(id: string) {
+	try {
+		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
+		const booking: IBooking = await Booking.find({ _id: id }).lean();
+
+		booking._id = booking._id.toString();
+
+		console.log('GET BOOKING', booking);
+
+		return booking;
+	} catch (e) {
+		console.log('GET BOOKINGS ERROR', e);
 	}
 }
 
@@ -108,5 +142,6 @@ export {
 	getEmployees,
 	getEmployee,
 	createEmployee,
-	getBookings
+	getBookings,
+	getBooking
 };

@@ -1,33 +1,12 @@
 <script lang="ts">
-	import type { IFilteredEmployee } from '$lib/types';
+	import type { IEmployee } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { toast, Toaster } from 'svelte-french-toast';
+	import type { PageData } from './$types';
 
-	let employees: IFilteredEmployee[] = [];
+	export let data: PageData;
 
-	onMount(async () => {
-		employees = await getEmployees().then((employees) => {
-			console.log('Employees +page.svelte: ', employees.employees);
-			return employees.employees;
-		});
-	});
-
-	async function getEmployees() {
-		const employeeRes = await fetch('/api/admin/employees', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-		if (employeeRes.ok) {
-			return await employeeRes.json();
-		} else {
-			console.log(employeeRes);
-			toast.error('Kunde inte hämta anställda.\nKontakta systemadministratör om felet kvarstår.', {
-				duration: 5000
-			});
-		}
-	}
+	const employees = data.employees as IEmployee[];
 </script>
 
 <Toaster />

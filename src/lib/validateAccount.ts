@@ -3,7 +3,11 @@ import { env } from '$env/dynamic/private';
 import Employee from '../models/Employee';
 import jwt from 'jsonwebtoken';
 
-async function validateAdmin(token: string) {
+async function validateAdmin(token: string | undefined) {
+	if (!token) {
+		return { error: 'Unauthorized', status: 401, body: 'Unauthorized' };
+	}
+
 	try {
 		jwt.verify(token, env.JWT_SECRET as string, async function (err) {
 			if (err) {

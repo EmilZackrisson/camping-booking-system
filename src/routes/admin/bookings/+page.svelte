@@ -4,26 +4,13 @@
 	import type { IBooking } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { bookingsStore } from '$lib/stores';
+	import type { PageData } from './$types';
 
-	let bookings: IBooking[];
+	let bookings: IBooking[] = [];
 
-	bookingsStore.subscribe((value) => {
-		bookings = value;
-	});
+	export let data: PageData;
 
-	onMount(async () => {
-		bookings = await getBookings().then((bookings) => {
-			console.log(bookings);
-			bookingsStore.set(bookings);
-			return bookings;
-		});
-	});
-
-	async function getBookings() {
-		const res = await fetch('/api/bookings');
-		const data = await res.json();
-		return data;
-	}
+	bookings = data.bookings as IBooking[];
 </script>
 
 <Toaster />
@@ -35,7 +22,7 @@
 		<p>Inga bokningar</p>
 	{:else if bookings}
 		<section class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-			{#each bookings as booking}
+			{#each bookings as booking (booking._id)}
 				<div class="booking">
 					<BookingCard data={booking} />
 				</div>
