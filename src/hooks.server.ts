@@ -16,7 +16,7 @@ export const handle = sequence(Sentry.sentryHandle(), (async ({ event, resolve }
 	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/api/secure')) {
 		const cookie = event.cookies.get('jwt')?.trim();
 
-		console.log('Cookie: ', cookie);
+		console.log('Cookie: ', cookie, 'event.url.pathname: ', event.url.pathname);
 
 		if (!cookie) {
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });

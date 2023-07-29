@@ -51,10 +51,19 @@ async function createAccomodation(accomodation: IAccomodation) {
 
 async function getEmployee(id: string) {
 	try {
+		console.log('Getting employee with id: ', id);
 		await mongoose.connect(env.MONGO_CONNECTION_STRING as string);
-		const employee: IEmployee = await Employee.find({ _id: id }).lean();
+
+		const employee: IEmployee = (await Employee.findById(id).lean()) as IEmployee;
+
+		if (!employee) {
+			console.log('No employee found with id: ', id);
+			return null;
+		}
 
 		employee._id = employee._id.toString();
+
+		console.log('Employee: ', employee);
 
 		return employee;
 	} catch (e) {
