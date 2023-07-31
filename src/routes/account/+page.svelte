@@ -5,6 +5,7 @@
 	export let data: PageData;
 
 	const account = data.body?.employee;
+	data;
 
 	async function logoutAllDevices() {
 		const res = await fetch('/api/account/logout-all-devices', {
@@ -14,6 +15,8 @@
 				Authorization: 'Bearer ' + Cookies.get('jwt')
 			}
 		});
+
+		console.log('Response', res);
 
 		if (res.ok) {
 			Cookies.remove('jwt');
