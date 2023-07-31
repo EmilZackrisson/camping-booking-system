@@ -1,12 +1,27 @@
-import type { PageServerLoad } from './$types';
 import { getBookings } from '$lib/db';
-import { serializeNonPOJOs } from '$lib/utils';
-import type { IBooking } from '$lib/types';
+import { validateEmployee } from '$lib/validateAccount';
+import type { PageServerLoad } from './$types';
 
-export const load = (async () => {
-	const bookings = serializeNonPOJOs(await getBookings()) as IBooking[];
-	console.log(bookings);
-	return {
-		bookings
-	};
+export const load = (async ({ cookies }) => {
+	const jwt = cookies.get('jwt');
+
+	if (!jwt) {
+		return {
+			status: 401,
+			error: 'Unauthorized'
+		};
+	}
+
+	const validEmployee = await validateEmployee(jwt);
+
+	if (validEmployee.error) {
+		return {
+			status: 401,
+			error: 'Unauthorized'
+		};
+	}
+
+	const bookings = await getBookings();
+
+	return { bookings: bookings };
 }) satisfies PageServerLoad;

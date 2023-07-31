@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { toast, Toaster } from 'svelte-french-toast';
+	import type { PageData } from './$types';
 
 	async function createAccount(e: Event) {
 		e.preventDefault();

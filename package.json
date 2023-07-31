@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev --host",
+		"dev": "vite dev --host ",
 		"dev-debug": "vavite-loader vite dev --port 3000",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -45,7 +45,7 @@
 		"daisyui": "^3.0.3",
 		"js-cookie": "^3.0.5",
 		"jsonwebtoken": "^9.0.0",
-		"mongoose": "^7.3.0",
+		"mongoose": "^7.3.3",
 		"svelte-french-toast": "^1.0.4-beta.0"
 	}
 }

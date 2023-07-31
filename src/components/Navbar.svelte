@@ -10,18 +10,15 @@
 			method: 'POST'
 		});
 
+
+	function logout() {
+		Cookies.remove('jwt');
+		Cookies.remove('role');
 		window.location.href = '/';
 	}
 
-	let role: string;
-	let jwt: string;
-
-	onMount(() => {
-		role = Cookies.get('role') ?? '';
-		jwt = Cookies.get('jwt') ?? '';
-
-		console.log(role, jwt);
-	});
+	let role = Cookies.get('role');
+	let jwt = Cookies.get('jwt');
 </script>
 
 <nav class="navbar bg-base-100">

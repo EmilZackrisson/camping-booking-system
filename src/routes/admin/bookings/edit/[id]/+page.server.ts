@@ -3,6 +3,7 @@ import Booking from '../../../../../models/Booking';
 import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
 import type { PageServerLoad } from './$types';
+import { getBooking } from '$lib/db';
 
 export const load = (async ({ params, cookies }) => {
 	try {
@@ -18,20 +19,14 @@ export const load = (async ({ params, cookies }) => {
 
 		const id = params.id.replace('$', '');
 
-		await mongoose.connect(env.MONGO_CONNECTION_STRING);
-
-		const booking = await Booking.findById(id);
+		const booking = await getBooking(id);
 
 		if (!booking) {
 			return new Response(JSON.stringify({ error: 'Booking not found', status: 404 }));
 		}
 
-		console.log(booking);
-
-		const json = JSON.stringify(booking);
-
 		return {
-			booking: json
+			booking: booking
 		};
 	} catch (error) {
 		console.error(error);

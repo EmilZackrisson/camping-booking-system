@@ -1,7 +1,10 @@
 <script lang="ts">
-	export let data: any;
-	const booking = JSON.parse(data.booking);
-	console.log(booking);
+	import type { IBooking } from '$lib/types';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+
+	let booking = data.booking as IBooking;
 
 	let caravanChecked = booking.Vehicles.includes('caravan');
 	let motorhomeChecked = booking.Vehicles.includes('motorhome');
