@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Cookies from 'js-cookie';
+	import type { PageData } from './$types';
 
-	const role = Cookies.get('role');
+	export let data: PageData;
 </script>
 
 <section class="flex flex-col">
@@ -10,7 +10,7 @@
 		<a href="/admin/bookings">Bokningar</a>
 		<a href="/admin/accomodations">Boenden</a>
 
-		{#if role === 'Admin'}
+		{#if data.user.role === 'Admin'}
 			<a href="/admin/employees">Anställda</a>
 		{/if}
 	</div>
