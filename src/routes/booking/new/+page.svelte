@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { toast, Toaster } from 'svelte-french-toast';
 
-	let caravanChecked = false;
-	let motorhomeChecked = false;
+	let accomodationsChoosed: any[] = [];
 
 	let caravanData: {
 		length: number;
@@ -28,13 +27,8 @@
 		const formData = new FormData(form.target as HTMLFormElement);
 		let data = Object.fromEntries(formData.entries());
 
-		// Make a string of the type of accommodation
-		let typeOfAccommodation = '';
-		if (data.tent) {
-			typeOfAccommodation += 'Tält, ';
-		}
-		if (data.caravan) {
-			typeOfAccommodation += 'Husvagn, ';
+		// Check witch accomodation is choosed
+		if (accomodationsChoosed.includes('Husvagn')) {
 			caravanData.length = Number(data.caravanLength);
 			caravanData.width = Number(data.caravanWidth);
 			caravanData.regNr = data.caravanRegNr as string;
@@ -45,8 +39,7 @@
 
 			data.caravanData = JSON.stringify(caravanData);
 		}
-		if (data.motorhome) {
-			typeOfAccommodation += 'Husbil, ';
+		if (accomodationsChoosed.includes('Husbil')) {
 			motorhomeData.length = Number(data.motorhomeLength);
 			motorhomeData.width = Number(data.motorhomeWidth);
 			motorhomeData.regNr = data.motorhomeRegNr as string;
@@ -57,10 +50,6 @@
 
 			data.motorhomeData = JSON.stringify(motorhomeData);
 		}
-		if (data.cottage) {
-			typeOfAccommodation += 'Stuga, ';
-		}
-		typeOfAccommodation = typeOfAccommodation.slice(0, -2);
 
 		// Remove the checkboxes from the data object
 		delete data.tent;
@@ -69,7 +58,7 @@
 		delete data.cottage;
 
 		// Add the type of accommodation to the data object
-		data.typeOfAccommodation = typeOfAccommodation;
+		data.typeOfAccommodation = accomodationsChoosed.join(', ');
 
 		// Check if date is valid
 		if (data.arrivalDate > data.departureDate) {
@@ -158,24 +147,24 @@
 		<p>Typ av boende</p>
 		<div class="type">
 			<div class="checkbox-row">
-				<input type="checkbox" name="tent" id="tent" />
+				<input type="checkbox" id="tent" bind:group={accomodationsChoosed} value="Tält" />
 				<label for="tent">Tält</label>
 			</div>
 			<div class="checkbox-row">
-				<input type="checkbox" name="caravan" id="caravan" bind:checked={caravanChecked} />
+				<input type="checkbox" id="caravan" bind:group={accomodationsChoosed} value="Husvagn" />
 				<label for="caravan">Husvagn</label>
 			</div>
 			<div class="checkbox-row">
-				<input type="checkbox" name="motorhome" id="motorhome" bind:checked={motorhomeChecked} />
+				<input type="checkbox" id="motorhome" bind:group={accomodationsChoosed} value="Husbil" />
 				<label for="motorhome">Husbil</label>
 			</div>
 			<div class="checkbox-row">
-				<input type="checkbox" name="cottage" id="cottage" />
+				<input type="checkbox" id="cottage" bind:group={accomodationsChoosed} value="Stuga" />
 				<label for="cottage">Stuga</label>
 			</div>
 		</div>
 
-		{#if motorhomeChecked}
+		{#if accomodationsChoosed.includes('Husbil')}
 			<label for="motorhomeLength">Längd på husbil</label>
 			<input type="number" name="motorhomeLength" id="motorhomeLength" />
 			<label for="motorhomeWidth">Bredd på husbil</label>
@@ -184,7 +173,7 @@
 			<input type="text" name="motorhomeRegNr" id="motorhomeRegNr" />
 		{/if}
 
-		{#if caravanChecked}
+		{#if accomodationsChoosed.includes('Husvagn')}
 			<label for="caravanLength">Längd på husvagn</label>
 			<input type="number" name="caravanLength" id="caravanLength" />
 			<label for="caravanWidth">Bredd på husvagn</label>

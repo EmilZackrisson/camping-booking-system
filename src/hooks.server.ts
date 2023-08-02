@@ -22,7 +22,7 @@ export const handle = sequence(Sentry.sentryHandle(), (async ({ event, resolve }
 			return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
 		}
 
-		jwt.verify(cookie, env.JWT_SECRET as string, async function (err, decoded) {
+		jwt.verify(cookie, env.JWT_SECRET as string, async function (err) {
 			if (err) {
 				console.log(err);
 				return new Response('Redirect', { status: 303, headers: { Location: '/auth/login' } });
@@ -45,4 +45,5 @@ export const handle = sequence(Sentry.sentryHandle(), (async ({ event, resolve }
 
 	return resolve(event);
 }) satisfies Handle);
+
 export const handleError = Sentry.handleErrorWithSentry();

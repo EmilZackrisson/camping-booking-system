@@ -1,38 +1,5 @@
-<script lang="ts">
-	import Cookies from 'js-cookie';
-
-	async function login(e: Event) {
-		e.preventDefault();
-
-		const formData = new FormData(e.target as HTMLFormElement);
-		let data = Object.fromEntries(formData.entries());
-
-		const response = await fetch('/auth/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		});
-
-		const result = await response.json();
-
-		if (result.jwtToken !== undefined) {
-			// window.location.href = "/booking";
-			console.log(result);
-
-			Cookies.set('jwt', result.jwtToken, { expires: 7 });
-			Cookies.set('role', result.role, { expires: 7 });
-
-			window.location.href = '/admin';
-		} else {
-			alert(result.status);
-		}
-	}
-</script>
-
 <section>
-	<form on:submit={login} class="flex p-5 bg-base-100 rounded-md flex-col container max-w-2xl">
+	<form method="POST" class="flex p-5 bg-base-100 rounded-md flex-col container max-w-2xl">
 		<h1 class="text-xl">Logga in</h1>
 		<div class="form-control w-full">
 			<label class="label" for="email">
