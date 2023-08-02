@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { redirect } from '@sveltejs/kit';
 	import Cookies from 'js-cookie';
-	import { onMount } from 'svelte';
+	import type { PageData } from '../routes/$types';
+
+	export let userData: PageData;
 
 	async function logout() {
 		Cookies.remove('role');
@@ -8,17 +11,10 @@
 
 		await fetch('/auth/logout', {
 			method: 'POST'
+		}).then((res) => {
+			if (res.ok) redirect(303, '/');
 		});
-
-
-	function logout() {
-		Cookies.remove('jwt');
-		Cookies.remove('role');
-		window.location.href = '/';
 	}
-
-	let role = Cookies.get('role');
-	let jwt = Cookies.get('jwt');
 </script>
 
 <nav class="navbar bg-base-100">
@@ -48,7 +44,7 @@
 						<summary>Admin</summary>
 						<ul class="p-3 flex flex-col gap-2">
 							<li><a href="/admin/bookings">Bokningar</a></li>
-							{#if role === 'Admin'}
+							{#if userData.user.role === 'Admin'}
 								<li><a href="/admin/employees">Anställda</a></li>
 							{/if}
 							<li><a href="/admin/accomodations">Boenden</a></li>
@@ -56,7 +52,7 @@
 					</details>
 				</li>
 				<li><a href="/booking/new">Skapa bokning</a></li>
-				{#if jwt === undefined}
+				{#if userData.user.jwt === undefined}
 					<li><a href="/auth/login">Logga in</a></li>
 				{:else}
 					<li><button on:click={logout} class="hover:btn-error">Logga ut</button></li>
@@ -82,7 +78,7 @@
 					<summary class="justify-between"> Admin </summary>
 					<ul class="p-2">
 						<li><a href="/admin/bookings">Bokningar</a></li>
-						{#if role === 'Admin'}
+						{#if userData.user.role === 'Admin'}
 							<li><a href="/admin/employees">Anställda</a></li>
 						{/if}
 						<li><a href="/admin/accomodations">Boenden</a></li>
@@ -90,7 +86,7 @@
 				</details>
 			</li>
 			<li><a href="/booking/new">Skapa bokning</a></li>
-			{#if jwt === undefined}
+			{#if userData.user.jwt === undefined}
 				<li><a href="/auth/login">Logga in</a></li>
 			{:else}
 				<li><button on:click={logout} class="hover:btn-error">Logga ut</button></li>
