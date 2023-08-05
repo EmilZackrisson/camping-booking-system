@@ -1,6 +1,3 @@
-import mongoose from 'mongoose';
-import Booking from '../../../../../models/Booking';
-import { env } from '$env/dynamic/private';
 import { validateEmployee } from '$lib/validateAccount';
 import type { PageServerLoad } from './$types';
 import { getBooking } from '$lib/db';
@@ -22,11 +19,14 @@ export const load = (async ({ params, cookies }) => {
 		const booking = await getBooking(id);
 
 		if (!booking) {
+			console.log('Booking not found');
 			return new Response(JSON.stringify({ error: 'Booking not found', status: 404 }));
 		}
 
+		console.log(booking);
+
 		return {
-			booking: booking
+			booking
 		};
 	} catch (error) {
 		console.error(error);
