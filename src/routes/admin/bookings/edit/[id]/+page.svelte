@@ -4,7 +4,8 @@
 
 	export let data: PageData;
 
-	let booking = data.booking as IBooking;
+	let bookings = data.booking as { bookings: IBooking[]; lenght: number };
+	let booking = bookings.bookings[0];
 
 	let caravanChecked = booking.Vehicles.includes('caravan');
 	let motorhomeChecked = booking.Vehicles.includes('motorhome');

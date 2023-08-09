@@ -6,18 +6,58 @@ import type { RequestHandler } from '@sveltejs/kit';
 import type { IBooking } from '$lib/types';
 import { Vehicle } from '$lib/classes';
 
-export const GET = (async ({ url }) => {
-	const id = url.searchParams.get('id');
+export const GET = (async ({ url, request }) => {
+	try {
+		const id = url.searchParams.get('id');
 
-	await mongoose.connect(env.MONGO_CONNECTION_STRING);
+		await mongoose.connect(env.MONGO_CONNECTION_STRING);
 
-	const booking: IBooking | null = await Booking.findOne({ _id: id });
+		if (id) {
+			const booking: IBooking | null = await Booking.findOne({ _id: id });
 
-	if (!booking) {
-		return new Response(JSON.stringify({ error: 'Booking not found' }));
+			if (!booking) {
+				return new Response(JSON.stringify({ error: 'Booking not found' }));
+			}
+
+			return new Response(JSON.stringify(booking));
+		}
+
+		const jwt = request.headers.get('cookie')?.split('=')[1];
+
+		if (!jwt) {
+			return new Response(JSON.stringify({ error: 'Did not provide token' }), {
+				status: 401
+			});
+		}
+
+		const employee = await validateEmployee(jwt);
+
+		if (employee.error) {
+			return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+				status: 401
+			});
+		}
+
+		const bookings: IBooking[] = await Booking.find({});
+
+		const response = new Response(
+			JSON.stringify({
+				bookings,
+				length: bookings.length
+			}),
+			{
+				headers: {
+					'content-type': 'application/json'
+				}
+			}
+		);
+
+		return response;
+	} catch (error) {
+		return new Response(JSON.stringify({ error: 'Something went wrong' }), {
+			status: 500
+		});
 	}
-
-	return new Response(JSON.stringify(booking));
 }) satisfies RequestHandler;
 
 export const POST = (async ({ request }) => {
