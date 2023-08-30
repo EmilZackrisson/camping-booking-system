@@ -45,7 +45,7 @@
 		"daisyui": "^3.0.3",
 		"js-cookie": "^3.0.5",
 		"jsonwebtoken": "^9.0.0",
-		"mongoose": "^7.3.3",
+		"mongoose": "^7.5.0",
 		"svelte-french-toast": "^1.0.4-beta.0"
 	}
 }
